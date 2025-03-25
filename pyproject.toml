@@ -13,7 +13,8 @@ dependencies = [
     "whitenoise (>=6.9.0,<7.0.0)",
     "django (>=5.1.7,<6.0.0)",
     "python-dotenv (>=1.1.0,<2.0.0)",
-    "django-browser-reload (>=1.18.0,<2.0.0)"
+    "django-browser-reload (>=1.18.0,<2.0.0)",
+    "ruff (>=0.11.2,<0.12.0)"
 ]
 
 
