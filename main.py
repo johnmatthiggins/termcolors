@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 from enum import Enum
-import io
 import json
 import toml
 import yaml
