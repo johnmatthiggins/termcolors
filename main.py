@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 from enum import Enum
+import io
 import json
 import toml
+import yaml
 
 class ThemeFormat(Enum):
     ALACRITTY_TOML = 0
@@ -112,7 +114,58 @@ class ThemeIR:
 
 
     def _load_alacritty_yaml(self, text: str):
-        pass
+        from yaml import CLoader as Loader
+        theme_data = yaml.load(text, Loader)
+
+        background    = theme_data['colors']['primary']['background'].replace('0x', '#')
+        foreground    = theme_data['colors']['primary']['foreground'].replace('0x', '#')
+
+        cursor_text = background
+        cursor_cursor = foreground
+        if theme_data['colors'].get('cursor'):
+            cursor_text   = theme_data['colors']['cursor'].get('text').replace('0x', '#')
+            cursor_cursor = theme_data['colors']['cursor'].get('cursor').replace('0x', '#')
+
+        color0 = theme_data['colors']['normal']['black'].replace('0x', '#')
+        color1 = theme_data['colors']['normal']['red'].replace('0x', '#')
+        color2 = theme_data['colors']['normal']['green'].replace('0x', '#')
+        color3 = theme_data['colors']['normal']['yellow'].replace('0x', '#')
+        color4 = theme_data['colors']['normal']['blue'].replace('0x', '#')
+        color5 = theme_data['colors']['normal']['magenta'].replace('0x', '#')
+        color6 = theme_data['colors']['normal']['cyan'].replace('0x', '#')
+        color7 = theme_data['colors']['normal']['white'].replace('0x', '#')
+
+        color8 = theme_data['colors']['bright']['black'].replace('0x', '#')
+        color9 = theme_data['colors']['bright']['red'].replace('0x', '#')
+        color10 = theme_data['colors']['bright']['green'].replace('0x', '#')
+        color11 = theme_data['colors']['bright']['yellow'].replace('0x', '#')
+        color12 = theme_data['colors']['bright']['blue'].replace('0x', '#')
+        color13 = theme_data['colors']['bright']['magenta'].replace('0x', '#')
+        color14 = theme_data['colors']['bright']['cyan'].replace('0x', '#')
+        color15 = theme_data['colors']['bright']['white'].replace('0x', '#')
+
+        self._colors = [
+            color0,
+            color1,
+            color2,
+            color3,
+            color4,
+            color5,
+            color6,
+            color7,
+            color8,
+            color9,
+            color10,
+            color11,
+            color12,
+            color13,
+            color14,
+            color15,
+        ]
+        self._background = background
+        self._foreground = foreground
+        self._cursor_foreground = cursor_cursor 
+        self._cursor_background = cursor_text
 
     def _load_kitty(self, text: str):
         theme = {}
@@ -236,7 +289,40 @@ class ThemeIR:
         return text
 
     def _output_alacritty_yaml(self) -> str:
-        return ""
+        theme_data = {
+            "colors": {
+                "primary": {
+                    "background": self._background,
+                    "foreground": self._foreground,
+                },
+                "normal": {
+                    "black": self._colors[0],
+                    "red": self._colors[1],
+                    "green": self._colors[2],
+                    "yellow": self._colors[3],
+                    "blue": self._colors[4],
+                    "magenta": self._colors[5],
+                    "cyan": self._colors[6],
+                    "white": self._colors[7],
+                },
+                "bright": {
+                    "black": self._colors[8],
+                    "red": self._colors[9],
+                    "green": self._colors[10],
+                    "yellow": self._colors[11],
+                    "blue": self._colors[12],
+                    "magenta": self._colors[13],
+                    "cyan": self._colors[14],
+                    "white": self._colors[15],
+                },
+                "cursor": {
+                    "cursor": self._cursor_background,
+                    "text": self._cursor_foreground,
+                },
+            }
+        }
+        text = yaml.dump(theme_data)
+        return text
 
     def _output_iterm2(self) -> str:
         return ""
@@ -322,10 +408,10 @@ class ThemeConverter:
         return self._theme.text(output_type)
 
 def main():
-    with open("cobalt.toml", "rb") as f:
+    with open("alacritty.yaml", "rb") as f:
         contents = f.read().decode(encoding='utf8')
-        theme = ThemeIR(contents, ThemeFormat.ALACRITTY_TOML)
-        print(theme.text(ThemeFormat.WINDOWS_TERMINAL))
+        theme = ThemeIR(contents, ThemeFormat.ALACRITTY_YAML)
+        print(theme.text(ThemeFormat.ALACRITTY_YAML))
 
 if __name__ == '__main__':
     main()
