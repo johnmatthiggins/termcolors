@@ -13,16 +13,14 @@ class ThemeFormat(Enum):
     XTERM     = 4
     WINDOWS_TERMINAL = 5
 
-def file_ext_to_format(file_ext):
+def file_ext_to_format(file_ext: str) -> ThemeFormat:
     match file_ext.lower():
         case 'xresources':
             return ThemeFormat.XTERM
-
         # maybe kitty but who knows...
         # conf is a pretty generic file extension
         case 'conf':
-            pass
-
+            return ThemeFormat.KITTY
         # assume this is alacritty
         case 'toml':
             return ThemeFormat.ALACRITTY_TOML
@@ -30,13 +28,10 @@ def file_ext_to_format(file_ext):
             return ThemeFormat.ALACRITTY_YAML
         case 'yml':
             return ThemeFormat.ALACRITTY_YAML
-
         case 'itermcolors':
             return ThemeFormat.ITERM2
-
         case 'json':
             return ThemeFormat.WINDOWS_TERMINAL
-
         case _:
             raise Exception("File extension is not recognized!")
 
@@ -408,7 +403,7 @@ class ThemeConverter:
         return self._theme.text(output_type)
 
 def main():
-    with open("alacritty.yaml", "rb") as f:
+    with open("example_themes/alacritty.yaml", "rb") as f:
         contents = f.read().decode(encoding='utf8')
         theme = ThemeIR(contents, ThemeFormat.ALACRITTY_YAML)
         print(theme.text(ThemeFormat.ALACRITTY_YAML))
