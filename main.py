@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from enum import Enum
-import tomllib as toml
+import json
+import toml
 
 class ThemeFormat(Enum):
     ALACRITTY_TOML = 0
@@ -114,7 +115,39 @@ class ThemeIR:
         pass
 
     def _load_kitty(self, text: str):
-        pass
+        theme = {}
+        for line in text.splitlines():
+            segments = line.split()
+            if len(segments) == 2:
+                key = segments[0]
+                value = segments[1]
+
+                theme[key] = value
+
+        self._background = theme["background"]
+        self._foreground = theme["foreground"]
+        self._cursor_background = theme["cursor"]
+        self._cursor_foreground = theme["background"]
+        self._ = theme["selection_background"]
+        self._ = theme["selection_foreground"]
+
+        self._colors = []
+        self._colors.append(theme["color0"])
+        self._colors.append(theme["color1"])
+        self._colors.append(theme["color2"])
+        self._colors.append(theme["color3"])
+        self._colors.append(theme["color4"])
+        self._colors.append(theme["color5"])
+        self._colors.append(theme["color6"])
+        self._colors.append(theme["color7"])
+        self._colors.append(theme["color8"])
+        self._colors.append(theme["color9"])
+        self._colors.append(theme["color10"])
+        self._colors.append(theme["color11"])
+        self._colors.append(theme["color12"])
+        self._colors.append(theme["color13"])
+        self._colors.append(theme["color14"])
+        self._colors.append(theme["color15"])
 
     def _load_xterm(self, text: str):
         pass
@@ -141,7 +174,40 @@ class ThemeIR:
                 return self._output_windows_terminal()
 
     def _output_alacritty_toml(self) -> str:
-        return ""
+        theme_data = {
+            "colors": {
+                "primary": {
+                    "background": self._background,
+                    "foreground": self._foreground,
+                },
+                "normal": {
+                    "black": self._colors[0],
+                    "red": self._colors[1],
+                    "green": self._colors[2],
+                    "yellow": self._colors[3],
+                    "blue": self._colors[4],
+                    "magenta": self._colors[5],
+                    "cyan": self._colors[6],
+                    "white": self._colors[7],
+                },
+                "bright": {
+                    "black": self._colors[8],
+                    "red": self._colors[9],
+                    "green": self._colors[10],
+                    "yellow": self._colors[11],
+                    "blue": self._colors[12],
+                    "magenta": self._colors[13],
+                    "cyan": self._colors[14],
+                    "white": self._colors[15],
+                },
+                "cursor": {
+                    "cursor": self._cursor_background,
+                    "text": self._cursor_foreground,
+                },
+            }
+        }
+        text = toml.dumps(theme_data)
+        return text
 
     def _output_alacritty_yaml(self) -> str:
         return ""
@@ -153,10 +219,74 @@ class ThemeIR:
         return ""
 
     def _output_kitty(self) -> str:
-        return ""
+        background = self._background
+        foreground = self._foreground
+
+        cursor_text = self._cursor_foreground
+        cursor_cursor = self._cursor_background
+
+        colors = self._colors
+
+        kitty_config = f'''
+background {background}
+foreground {foreground}
+selection_background {foreground}
+selection_foreground {background}
+cursor {cursor_cursor}
+color0 {colors[0]}
+color1 {colors[1]}
+color2 {colors[2]}
+color3 {colors[3]}
+color4 {colors[4]}
+color5 {colors[5]}
+color6 {colors[6]}
+color7 {colors[7]}
+color8 {colors[8]}
+color9 {colors[9]}
+color10 {colors[10]}
+color11 {colors[11]}
+color12 {colors[12]}
+color13 {colors[13]}
+color14 {colors[14]}
+color15 {colors[15]}
+active_tab_foreground {colors[15]}
+active_tab_background {colors[8]}
+inactive_tab_foreground {colors[15]}
+inactive_tab_background {colors[0]}
+    '''
+        return kitty_config
 
     def _output_windows_terminal(self) -> str:
-        return ""
+        data = {
+            "name": "Generated Theme",
+
+            "cursorColor": self._cursor_foreground,
+            "selectionBackground": self._cursor_background,
+
+            "background": self._background,
+            "foreground": self._foreground,
+
+            "black": self._colors[0],
+            "red": self._colors[1],
+            "green": self._colors[2],
+            "yellow": self._colors[3],
+            "blue": self._colors[4],
+            "purple": self._colors[5],
+            "cyan": self._colors[6],
+            "white": self._colors[7],
+
+            "brightBlack": self._colors[8],
+            "brightRed": self._colors[9],
+            "brightGreen": self._colors[10],
+            "brightYellow": self._colors[11],
+            "brightBlue": self._colors[12],
+            "brightPurple": self._colors[13],
+            "brightCyan": self._colors[14],
+            "brightWhite": self._colors[15],
+        }
+
+        text = json.dumps(data, indent=4)
+        return text
 
 class ThemeConverter:
     def __init__(self, text: str, input_type: ThemeFormat):
@@ -166,68 +296,10 @@ class ThemeConverter:
         return self._theme.text(output_type)
 
 def main():
-    with open("alacritty.toml", "rb") as f:
-        data = toml.load(f)
-        print(generate_kitty_theme(data))
-
-def generate_kitty_theme(toml_data):
-    background    = toml_data['colors']['primary']['background']
-    foreground    = toml_data['colors']['primary']['foreground']
-
-    cursor_text = background
-    cursor_cursor = foreground
-    if toml_data['colors'].get('cursor'):
-        cursor_text   = toml_data['colors']['cursor'].get('text')
-        cursor_cursor = toml_data['colors']['cursor'].get('cursor')
-
-    # todo figure out color mapping...
-    color0 = toml_data['colors']['normal']['black']
-    color1 = toml_data['colors']['normal']['red']
-    color2 = toml_data['colors']['normal']['green']
-    color3 = toml_data['colors']['normal']['yellow']
-    color4 = toml_data['colors']['normal']['blue']
-    color5 = toml_data['colors']['normal']['magenta']
-    color6 = toml_data['colors']['normal']['cyan']
-    color7 = toml_data['colors']['normal']['white']
-
-    color8 = toml_data['colors']['bright']['black']
-    color9 = toml_data['colors']['bright']['red']
-    color10 = toml_data['colors']['bright']['green']
-    color11 = toml_data['colors']['bright']['yellow']
-    color12 = toml_data['colors']['bright']['blue']
-    color13 = toml_data['colors']['bright']['magenta']
-    color14 = toml_data['colors']['bright']['cyan']
-    color15 = toml_data['colors']['bright']['white']
-
-    kitty_config = f'''
-background\t\t\t{background}
-foreground\t\t\t{foreground}
-selection_background\t\t\t{foreground}
-selection_foreground\t\t\t{background}
-cursor\t\t\t{cursor_cursor}
-color0\t\t\t{color0}
-color1\t\t\t{color1}
-color2\t\t\t{color2}
-color3\t\t\t{color3}
-color4\t\t\t{color4}
-color5\t\t\t{color5}
-color6\t\t\t{color6}
-color7\t\t\t{color7}
-color8\t\t\t{color8}
-color9\t\t\t{color9}
-color10\t\t\t{color10}
-color11\t\t\t{color11}
-color12\t\t\t{color12}
-color13\t\t\t{color13}
-color14\t\t\t{color14}
-color15\t\t\t{color15}
-active_tab_foreground\t\t\t{color15}
-active_tab_background\t\t\t{color8}
-inactive_tab_foreground\t\t\t{color15}
-inactive_tab_background\t\t\t{color0}
-'''
-    return kitty_config
-
+    with open("cobalt.toml", "rb") as f:
+        contents = f.read().decode(encoding='utf8')
+        theme = ThemeIR(contents, ThemeFormat.ALACRITTY_TOML)
+        print(theme.text(ThemeFormat.WINDOWS_TERMINAL))
 
 if __name__ == '__main__':
     main()
