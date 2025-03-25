@@ -4,7 +4,7 @@ import subprocess
 
 
 class Command(BaseCommand):
-    help = "Formats Python code"
+    help = "Checks Python code for common errors"
 
     def add_arguments(self, parser):
         pass
