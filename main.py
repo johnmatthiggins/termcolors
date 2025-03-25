@@ -156,7 +156,33 @@ class ThemeIR:
         pass
 
     def _load_windows_terminal(self, text: str):
-        pass
+        theme_data = json.loads(text)
+
+        self._cursor_foreground = theme_data["cursorColor"]
+        self._cursor_background = theme_data["selectionBackground"]
+
+        self._background = theme_data["background"]
+        self._foreground = theme_data["foreground"]
+
+        self._colors = [
+            theme_data["black"],
+            theme_data["red"],
+            theme_data["green"],
+            theme_data["yellow"],
+            theme_data["blue"],
+            theme_data["purple"],
+            theme_data["cyan"],
+            theme_data["white"],
+
+            theme_data["brightBlack"],
+            theme_data["brightRed"],
+            theme_data["brightGreen"],
+            theme_data["brightYellow"],
+            theme_data["brightBlue"],
+            theme_data["brightPurple"],
+            theme_data["brightCyan"],
+            theme_data["brightWhite"],
+        ]
 
     def text(self, output_type: ThemeFormat) -> str:
         match output_type:
