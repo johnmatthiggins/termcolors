@@ -5,32 +5,34 @@ import json
 import toml
 import yaml
 
+
 class ThemeFormat(Enum):
     ALACRITTY_TOML = 0
     ALACRITTY_YAML = 1
-    KITTY     = 2
-    ITERM2    = 3
-    XTERM     = 4
+    KITTY = 2
+    ITERM2 = 3
+    XTERM = 4
     WINDOWS_TERMINAL = 5
+
 
 def file_ext_to_format(file_ext: str) -> ThemeFormat:
     match file_ext.lower():
-        case 'xresources':
+        case "xresources":
             return ThemeFormat.XTERM
         # maybe kitty but who knows...
         # conf is a pretty generic file extension
-        case 'conf':
+        case "conf":
             return ThemeFormat.KITTY
         # assume this is alacritty
-        case 'toml':
+        case "toml":
             return ThemeFormat.ALACRITTY_TOML
-        case 'yaml':
+        case "yaml":
             return ThemeFormat.ALACRITTY_YAML
-        case 'yml':
+        case "yml":
             return ThemeFormat.ALACRITTY_YAML
-        case 'itermcolors':
+        case "itermcolors":
             return ThemeFormat.ITERM2
-        case 'json':
+        case "json":
             return ThemeFormat.WINDOWS_TERMINAL
         case _:
             raise Exception("File extension is not recognized!")
@@ -57,32 +59,32 @@ class ThemeIR:
     def _load_alacritty_toml(self, text: str):
         theme_data = toml.loads(text)
 
-        background    = theme_data['colors']['primary']['background']
-        foreground    = theme_data['colors']['primary']['foreground']
+        background = theme_data["colors"]["primary"]["background"]
+        foreground = theme_data["colors"]["primary"]["foreground"]
 
         cursor_text = background
         cursor_cursor = foreground
-        if theme_data['colors'].get('cursor'):
-            cursor_text   = theme_data['colors']['cursor'].get('text')
-            cursor_cursor = theme_data['colors']['cursor'].get('cursor')
+        if theme_data["colors"].get("cursor"):
+            cursor_text = theme_data["colors"]["cursor"].get("text")
+            cursor_cursor = theme_data["colors"]["cursor"].get("cursor")
 
-        color0 = theme_data['colors']['normal']['black']
-        color1 = theme_data['colors']['normal']['red']
-        color2 = theme_data['colors']['normal']['green']
-        color3 = theme_data['colors']['normal']['yellow']
-        color4 = theme_data['colors']['normal']['blue']
-        color5 = theme_data['colors']['normal']['magenta']
-        color6 = theme_data['colors']['normal']['cyan']
-        color7 = theme_data['colors']['normal']['white']
+        color0 = theme_data["colors"]["normal"]["black"]
+        color1 = theme_data["colors"]["normal"]["red"]
+        color2 = theme_data["colors"]["normal"]["green"]
+        color3 = theme_data["colors"]["normal"]["yellow"]
+        color4 = theme_data["colors"]["normal"]["blue"]
+        color5 = theme_data["colors"]["normal"]["magenta"]
+        color6 = theme_data["colors"]["normal"]["cyan"]
+        color7 = theme_data["colors"]["normal"]["white"]
 
-        color8 = theme_data['colors']['bright']['black']
-        color9 = theme_data['colors']['bright']['red']
-        color10 = theme_data['colors']['bright']['green']
-        color11 = theme_data['colors']['bright']['yellow']
-        color12 = theme_data['colors']['bright']['blue']
-        color13 = theme_data['colors']['bright']['magenta']
-        color14 = theme_data['colors']['bright']['cyan']
-        color15 = theme_data['colors']['bright']['white']
+        color8 = theme_data["colors"]["bright"]["black"]
+        color9 = theme_data["colors"]["bright"]["red"]
+        color10 = theme_data["colors"]["bright"]["green"]
+        color11 = theme_data["colors"]["bright"]["yellow"]
+        color12 = theme_data["colors"]["bright"]["blue"]
+        color13 = theme_data["colors"]["bright"]["magenta"]
+        color14 = theme_data["colors"]["bright"]["cyan"]
+        color15 = theme_data["colors"]["bright"]["white"]
 
         self._colors = [
             color0,
@@ -104,40 +106,42 @@ class ThemeIR:
         ]
         self._background = background
         self._foreground = foreground
-        self._cursor_foreground = cursor_cursor 
+        self._cursor_foreground = cursor_cursor
         self._cursor_background = cursor_text
-
 
     def _load_alacritty_yaml(self, text: str):
         from yaml import CLoader as Loader
+
         theme_data = yaml.load(text, Loader)
 
-        background    = theme_data['colors']['primary']['background'].replace('0x', '#')
-        foreground    = theme_data['colors']['primary']['foreground'].replace('0x', '#')
+        background = theme_data["colors"]["primary"]["background"].replace("0x", "#")
+        foreground = theme_data["colors"]["primary"]["foreground"].replace("0x", "#")
 
         cursor_text = background
         cursor_cursor = foreground
-        if theme_data['colors'].get('cursor'):
-            cursor_text   = theme_data['colors']['cursor'].get('text').replace('0x', '#')
-            cursor_cursor = theme_data['colors']['cursor'].get('cursor').replace('0x', '#')
+        if theme_data["colors"].get("cursor"):
+            cursor_text = theme_data["colors"]["cursor"].get("text").replace("0x", "#")
+            cursor_cursor = (
+                theme_data["colors"]["cursor"].get("cursor").replace("0x", "#")
+            )
 
-        color0 = theme_data['colors']['normal']['black'].replace('0x', '#')
-        color1 = theme_data['colors']['normal']['red'].replace('0x', '#')
-        color2 = theme_data['colors']['normal']['green'].replace('0x', '#')
-        color3 = theme_data['colors']['normal']['yellow'].replace('0x', '#')
-        color4 = theme_data['colors']['normal']['blue'].replace('0x', '#')
-        color5 = theme_data['colors']['normal']['magenta'].replace('0x', '#')
-        color6 = theme_data['colors']['normal']['cyan'].replace('0x', '#')
-        color7 = theme_data['colors']['normal']['white'].replace('0x', '#')
+        color0 = theme_data["colors"]["normal"]["black"].replace("0x", "#")
+        color1 = theme_data["colors"]["normal"]["red"].replace("0x", "#")
+        color2 = theme_data["colors"]["normal"]["green"].replace("0x", "#")
+        color3 = theme_data["colors"]["normal"]["yellow"].replace("0x", "#")
+        color4 = theme_data["colors"]["normal"]["blue"].replace("0x", "#")
+        color5 = theme_data["colors"]["normal"]["magenta"].replace("0x", "#")
+        color6 = theme_data["colors"]["normal"]["cyan"].replace("0x", "#")
+        color7 = theme_data["colors"]["normal"]["white"].replace("0x", "#")
 
-        color8 = theme_data['colors']['bright']['black'].replace('0x', '#')
-        color9 = theme_data['colors']['bright']['red'].replace('0x', '#')
-        color10 = theme_data['colors']['bright']['green'].replace('0x', '#')
-        color11 = theme_data['colors']['bright']['yellow'].replace('0x', '#')
-        color12 = theme_data['colors']['bright']['blue'].replace('0x', '#')
-        color13 = theme_data['colors']['bright']['magenta'].replace('0x', '#')
-        color14 = theme_data['colors']['bright']['cyan'].replace('0x', '#')
-        color15 = theme_data['colors']['bright']['white'].replace('0x', '#')
+        color8 = theme_data["colors"]["bright"]["black"].replace("0x", "#")
+        color9 = theme_data["colors"]["bright"]["red"].replace("0x", "#")
+        color10 = theme_data["colors"]["bright"]["green"].replace("0x", "#")
+        color11 = theme_data["colors"]["bright"]["yellow"].replace("0x", "#")
+        color12 = theme_data["colors"]["bright"]["blue"].replace("0x", "#")
+        color13 = theme_data["colors"]["bright"]["magenta"].replace("0x", "#")
+        color14 = theme_data["colors"]["bright"]["cyan"].replace("0x", "#")
+        color15 = theme_data["colors"]["bright"]["white"].replace("0x", "#")
 
         self._colors = [
             color0,
@@ -159,7 +163,7 @@ class ThemeIR:
         ]
         self._background = background
         self._foreground = foreground
-        self._cursor_foreground = cursor_cursor 
+        self._cursor_foreground = cursor_cursor
         self._cursor_background = cursor_text
 
     def _load_kitty(self, text: str):
@@ -221,7 +225,6 @@ class ThemeIR:
             theme_data["purple"],
             theme_data["cyan"],
             theme_data["white"],
-
             theme_data["brightBlack"],
             theme_data["brightRed"],
             theme_data["brightGreen"],
@@ -334,7 +337,7 @@ class ThemeIR:
 
         colors = self._colors
 
-        kitty_config = f'''
+        kitty_config = f"""
 background {background}
 foreground {foreground}
 selection_background {foreground}
@@ -360,19 +363,16 @@ active_tab_foreground {colors[15]}
 active_tab_background {colors[8]}
 inactive_tab_foreground {colors[15]}
 inactive_tab_background {colors[0]}
-    '''
+    """
         return kitty_config
 
     def _output_windows_terminal(self) -> str:
         data = {
             "name": "Generated Theme",
-
             "cursorColor": self._cursor_foreground,
             "selectionBackground": self._cursor_background,
-
             "background": self._background,
             "foreground": self._foreground,
-
             "black": self._colors[0],
             "red": self._colors[1],
             "green": self._colors[2],
@@ -381,7 +381,6 @@ inactive_tab_background {colors[0]}
             "purple": self._colors[5],
             "cyan": self._colors[6],
             "white": self._colors[7],
-
             "brightBlack": self._colors[8],
             "brightRed": self._colors[9],
             "brightGreen": self._colors[10],
@@ -395,6 +394,7 @@ inactive_tab_background {colors[0]}
         text = json.dumps(data, indent=4)
         return text
 
+
 class ThemeConverter:
     def __init__(self, text: str, input_type: ThemeFormat):
         self._theme = ThemeIR(text, input_type)
@@ -402,11 +402,13 @@ class ThemeConverter:
     def text(self, output_type: ThemeFormat):
         return self._theme.text(output_type)
 
+
 def main():
     with open("example_themes/alacritty.yaml", "rb") as f:
-        contents = f.read().decode(encoding='utf8')
+        contents = f.read().decode(encoding="utf8")
         theme = ThemeIR(contents, ThemeFormat.ALACRITTY_YAML)
         print(theme.text(ThemeFormat.ALACRITTY_YAML))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
