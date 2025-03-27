@@ -403,10 +403,10 @@ class ThemeConverter:
 
 
 def main():
-    with open("example_themes/alacritty.yaml", "rb") as f:
+    with open("example_themes/pencildark.conf", "rb") as f:
         contents = f.read().decode(encoding="utf8")
-        theme = ThemeIR(contents, ThemeFormat.ALACRITTY_YAML)
-        print(theme.text(ThemeFormat.ALACRITTY_YAML))
+        theme = ThemeIR(contents, ThemeFormat.KITTY)
+        print(theme.text(ThemeFormat.ALACRITTY_TOML))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,19 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HTML BOILERPLATE</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+  {% tailwind_css %}
+</head>
+<body>
+	<div class="m-8">
+		<div class="flex justify-start w-full">
+			<code class="w-1/2"><pre class="p-0.5 rounded-sm bg-black text-white text-sm w-1/2">{{ left_text }}</pre></code>
+		</div>
+	</div>
+</body>
+</html>

@@ -6,7 +6,7 @@ authors = [
     {name = "John Higgins",email = "johnmatthiggins@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<4.0.0"
 dependencies = [
     "pyyaml (>=6.0.2,<7.0.0)",
     "toml (>=0.10.2,<0.11.0)",
@@ -14,7 +14,8 @@ dependencies = [
     "django (>=5.1.7,<6.0.0)",
     "python-dotenv (>=1.1.0,<2.0.0)",
     "django-browser-reload (>=1.18.0,<2.0.0)",
-    "ruff (>=0.11.2,<0.12.0)"
+    "ruff (>=0.11.2,<0.12.0)",
+    "django-tailwind[reload] (>=3.8.0,<4.0.0)"
 ]
 
 
