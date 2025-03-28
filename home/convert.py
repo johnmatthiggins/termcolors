@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from enum import Enum
+import math
 import json
 import toml
 import yaml
@@ -417,6 +418,41 @@ inactive_tab_background {colors[0]}
             "color15": self._colors[15],
         }
 
+def _parse_color(hex_color):
+    no_hash = hex_color[1:]
+    r = int(no_hash[:2], 16)
+    g = int(no_hash[2:4], 16)
+    b = int(no_hash[4:], 16)
+    return (r, g, b)
+
+RED   = 0.2126
+GREEN = 0.7125
+BLUE  = 0.0722
+
+GAMMA = 2.4
+
+# r, g, b are integers from [0, 255]
+def _luminance(r, g, b):
+    def _f(c):
+        c /= 255
+        if c <= 0.03928:
+            return c / 12.92
+        else:
+            return math.pow((c + 0.055) / 1.055, GAMMA)
+
+    ra, ga, ba = map(_f, [r, g, b])
+    return ra * RED + ga * GREEN + ba * BLUE
+    
+
+def _contrast_ratio(color1, color2):
+    r1, g1, b1 = _parse_color(color1)
+    r2, g2, b2 = _parse_color(color2)
+    lum1 = _luminance(r1, g1, b1)
+    lum2 = _luminance(r2, g2, b2)
+    brightest = max(lum1, lum2)
+    darkest = min(lum1, lum2)
+
+    return (brightest + 0.05) / (darkest + 0.05);
 
 class ThemeConverter:
     def __init__(self, text: str, input_type: ThemeFormat):
@@ -429,9 +465,11 @@ class ThemeConverter:
         return self._theme.text(output_type)
 
     def contrast_ratio(self):
-        data = self._theme.dict()
         # todo figure out contrast ratio
-        return 0.0
+        return _contrast_ratio(
+            self._theme._background,
+            self._theme._foreground
+        )
 
 
 def main():
