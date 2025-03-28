@@ -3,7 +3,7 @@ from django.db import models
 # represents a theme
 # this is basically a glorified cache for the media files we downloaded
 class ColorScheme(models.Model):
-    path = models.CharField(max_length=255)
+    path = models.CharField(max_length=255, primary_key=True)
     name = models.CharField(max_length=255)
 
     background = models.CharField(max_length=8)

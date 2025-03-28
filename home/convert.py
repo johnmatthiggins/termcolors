@@ -393,13 +393,45 @@ inactive_tab_background {colors[0]}
         text = json.dumps(data, indent=4)
         return text
 
+    def dict(self):
+        return {
+            "background": self._background,
+            "foreground": self._foreground,
+            "cursor_fg": self._cursor_foreground,
+            "cursor_bg": self._cursor_background,
+            "color0": self._colors[0],
+            "color1": self._colors[1],
+            "color2": self._colors[2],
+            "color3": self._colors[3],
+            "color4": self._colors[4],
+            "color5": self._colors[5],
+            "color6": self._colors[6],
+            "color7": self._colors[7],
+            "color8": self._colors[8],
+            "color9": self._colors[9],
+            "color10": self._colors[10],
+            "color11": self._colors[11],
+            "color12": self._colors[12],
+            "color13": self._colors[13],
+            "color14": self._colors[14],
+            "color15": self._colors[15],
+        }
+
 
 class ThemeConverter:
     def __init__(self, text: str, input_type: ThemeFormat):
         self._theme = ThemeIR(text, input_type)
 
+    def dict(self):
+        return self._theme.dict()
+
     def text(self, output_type: ThemeFormat):
         return self._theme.text(output_type)
+
+    def contrast_ratio(self):
+        data = self._theme.dict()
+        # todo figure out contrast ratio
+        return 0.0
 
 
 def main():
