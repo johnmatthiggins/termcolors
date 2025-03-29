@@ -787,6 +787,18 @@ select {
   position: static;
 }
 
+.fixed {
+  position: fixed;
+}
+
+.left-0 {
+  left: 0px;
+}
+
+.top-0 {
+  top: 0px;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -812,6 +824,10 @@ select {
   height: 100vh;
 }
 
+.h-\[100vh\] {
+  height: 100vh;
+}
+
 .w-full {
   width: 100%;
 }
@@ -826,6 +842,10 @@ select {
 
 .w-64 {
   width: 16rem;
+}
+
+.w-\[100vw\] {
+  width: 100vw;
 }
 
 .min-w-8 {
