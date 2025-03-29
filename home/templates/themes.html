@@ -1,13 +1,15 @@
 {% extends "home.html" %}
 {% block root %}
-	<!-- <div id="modal-backdrop fixed left-0 top-0 w-[100vw] h-[100vh]"> -->
-	<!-- 	<dialog class="fixed"> -->
-	<!-- 		Hello world! -->
-	<!-- 	</dialog> -->
-	<!-- </div> -->
+	<div id="modal-backdrop fixed left-0 top-0 w-[100vw] h-[100vh]">
+		<div class="w-full flex items-center justify-center">
+			<dialog class="w-1/4 h-1/4 rounded-md">
+				<h1 class="text-3xl">Hello world!</h1>
+			</dialog>
+		</div>
+	</div>
 	<div class="w-full flex flex-col items-center py-4">
-		<table class="w-2/3">
-			<div class="flex justify-start w-2/3 mb-2">
+		<table class="mx-2 md:px-0 md:w-7/8 lg:px-0 lg:w-3/5">
+			<div class="flex justify-start mb-2">
 				<input type="search" class="w-64 border border-black border-solid rounded-md bg-gray-200">
 			</div>
 			<thead class="text-lg">
