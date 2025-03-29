@@ -1,21 +1,14 @@
 {% extends "home.html" %}
 {% block root %}
-	<div id="modal-backdrop fixed left-0 top-0 w-[100vw] h-[100vh]">
-		<div class="w-full flex items-center justify-center">
-			<dialog class="w-1/4 h-1/4 rounded-md">
-				<h1 class="text-3xl">Hello world!</h1>
-			</dialog>
-		</div>
-	</div>
 	<div class="w-full flex flex-col items-center py-4">
+		<h1 class="text-4xl italic" style="font-family: Acme;">TERMCOLORS.dev</h1>
 		<table class="mx-2 md:px-0 md:w-7/8 lg:px-0 lg:w-3/5">
 			<div class="flex justify-start mb-2">
-				<input type="search" class="w-64 border border-black border-solid rounded-md bg-gray-200">
+				<input type="search" class="w-80 border border-black border-solid rounded-md bg-gray-100">
 			</div>
 			<thead class="text-lg">
 				<tr>
-					<th style="text-align: left;">Name</th>
-					<th style="text-align: left;">Contrast</th>
+					<th class="text-left">Name</th>
 					<th class="max-w-8">Colors</th>
 					<th></th>
 					<th></th>
@@ -39,8 +32,12 @@
 			<tbody>
 			{% for scheme in colorschemes %}
 				<tr id="{{ scheme.name|slugify }}" class="text-lg">
-					<td class="min-w-8 hover:cursor-pointer underline-offset-2 underline decoration-blue-500"><a href="/#{{ scheme.name|slugify }}">{{ scheme.name }}</a></td>
-					<td class="min-w-8">{{ scheme.contrast_ratio }}</td>
+					<td class="min-w-8 hover:cursor-pointer flex gap-2">
+						<a class="underline underline-offset-2 decoration-blue-500" href="/{{ scheme.name|slugify }}/">{{ scheme.name }}</a>
+						{% if scheme.contrast_ratio > 16 %}
+						<span class="text-sm bg-gray-200 rounded-full no-underline px-3 my-1 text-gray-700">High contrast</span>
+						{% endif %}
+					</td>
 					<td class="min-w-8 border border-black border-solid" style="background-color: {{ scheme.cursor_foreground }}"></td>
 					<td class="min-w-8 border border-black border-solid" style="background-color: {{ scheme.cursor_background }}"></td>
 					<td class="min-w-8 border border-black border-solid" style="background-color: {{ scheme.color0 }}"></td>
@@ -69,10 +66,9 @@
 	document.addEventListener("DOMContentLoaded", () => {
 		const elements = document.querySelectorAll("tr");
 		elements.forEach((element, i) => {
-			if (i === 0) {
-				return;
+			if (i > 0) {
+				rows.push(element);
 			}
-			rows.push(element);
 		});
 		document.querySelector('[type="search"]').addEventListener("input", (event) => {
 			const text = event.target.value;

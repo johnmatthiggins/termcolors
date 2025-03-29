@@ -28,3 +28,18 @@ async def theme_list(request: HttpRequest) -> HttpResponse:
         "colorschemes": colorschemes,
     }
     return render(request, "themes.html", context)
+
+async def theme_view(request: HttpRequest, slug: str) -> HttpResponse:
+    queryset = ColorScheme.objects.raw(
+        """
+        SELECT *
+        FROM home_colorscheme
+        WHERE LOWER(REPLACE(name, ' ', '-')) = %s
+        """, [slug]
+    )
+    colorscheme = None
+    async for scheme in queryset:
+        colorscheme = scheme
+
+    context = { "colorscheme": colorscheme }
+    return render(request, "themeinfo.html", context)
