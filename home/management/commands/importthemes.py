@@ -37,6 +37,8 @@ class Command(BaseCommand):
             with open(full_path, "rb") as f:
                 try:
                     data = ThemeConverter(f.read().decode('utf8'), ThemeFormat.ALACRITTY_TOML).dict()
+                    if not data["cursor_bg"] or not data["cursor_fg"]:
+                        continue
 
                     new_scheme = ColorScheme(
                         path=full_path,

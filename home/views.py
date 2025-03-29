@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
 
-from models import ColorScheme 
+from home.models import ColorScheme 
 
 # Create your views here.
 def home(request: HttpRequest) -> HttpResponse:
