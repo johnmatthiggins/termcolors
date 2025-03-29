@@ -1,3 +1,5 @@
+import json
+
 from django.db import models
 
 # represents a theme
@@ -34,3 +36,30 @@ class ColorScheme(models.Model):
 
     # useful for finding high contrast themes
     contrast_ratio = models.DecimalField(max_digits=10, decimal_places=3)
+
+    def __str__(self) -> str:
+        dict_data = {
+            "path": str(self.path),
+            "name": self.name,
+            "background": self.background,
+            "foreground": self.foreground,
+            "cursor_background": self.cursor_background,
+            "cursor_foreground": self.cursor_foreground,
+            "color0": self.color0,
+            "color1": self.color1,
+            "color2": self.color2,
+            "color3": self.color3,
+            "color4": self.color4,
+            "color5": self.color5,
+            "color6": self.color6,
+            "color7": self.color7,
+            "color8": self.color8,
+            "color9": self.color9,
+            "color10": self.color10,
+            "color11": self.color11,
+            "color12": self.color12,
+            "color13": self.color13,
+            "color14": self.color14,
+            "color15": self.color15,
+        }
+        return json.dumps(dict_data, indent=4)

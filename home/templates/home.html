@@ -10,10 +10,13 @@
   {% tailwind_css %}
 </head>
 <body>
-	<div class="m-8">
-		<div class="flex justify-start w-full">
-			<code class="w-1/2"><pre class="p-0.5 rounded-sm bg-black text-white text-sm w-1/2">{{ left_text }}</pre></code>
-		</div>
-	</div>
+	{% block root %}
+		<h1 class="text-3xl">I think someone forgot to fill out their template!</h1>
+	{% endblock root %}
 </body>
+<style>
+html,body {
+	width: 100%;
+}
+</style>
 </html>

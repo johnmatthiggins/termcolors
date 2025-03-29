@@ -459,7 +459,9 @@ class ThemeConverter:
         self._theme = ThemeIR(text, input_type)
 
     def dict(self):
-        return self._theme.dict()
+        data = self._theme.dict()
+        data["contrast_ratio"] = self.contrast_ratio()
+        return data
 
     def text(self, output_type: ThemeFormat):
         return self._theme.text(output_type)

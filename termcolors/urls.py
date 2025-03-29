@@ -6,7 +6,7 @@ from django.conf import settings
 from home import views
 
 urlpatterns = [
-    path("", views.home),
+    path("", views.theme_list),
     path("admin/", admin.site.urls),
 ]
 

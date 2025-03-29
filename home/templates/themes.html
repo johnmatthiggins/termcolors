@@ -1,0 +1,51 @@
+{% extends "home.html" %}
+{% block root %}
+	<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Contrast</th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for scheme in colorschemes %}
+		<tr>
+			<td>{{ scheme.name }}</td>
+			<td>{{ scheme.contrast_ratio }}</td>
+			<td>{{ scheme.color0 }}</td>
+			<td>{{ scheme.color1 }}</td>
+			<td>{{ scheme.color2 }}</td>
+			<td>{{ scheme.color3 }}</td>
+			<td>{{ scheme.color4 }}</td>
+			<td>{{ scheme.color5 }}</td>
+			<td>{{ scheme.color6 }}</td>
+			<td>{{ scheme.color7 }}</td>
+			<td>{{ scheme.color8 }}</td>
+			<td>{{ scheme.color9 }}</td>
+			<td>{{ scheme.color10 }}</td>
+			<td>{{ scheme.color11 }}</td>
+			<td>{{ scheme.color12 }}</td>
+			<td>{{ scheme.color13 }}</td>
+			<td>{{ scheme.color14 }}</td>
+			<td>{{ scheme.color15 }}</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+{% endblock root %}
