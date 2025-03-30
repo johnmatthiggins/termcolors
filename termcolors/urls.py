@@ -10,6 +10,7 @@ urlpatterns = [
     path("<str:slug>/", views.theme_view),
     path("download/windows/<str:slug>/", views.download_theme_windows_terminal),
     path("download/alacritty/<str:slug>/", views.download_theme_alacritty),
+    path("download/kitty/<str:slug>/", views.download_theme_kitty),
     path("admin/", admin.site.urls),
 ]
 

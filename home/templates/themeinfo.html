@@ -6,7 +6,7 @@
 {% block root %}
 <div class="w-full p-4 text-lg">
 	<h1 class="text-white text-3xl mb-2" style="font-family: Acme;">{{ colorscheme.name }}</h1>
-	<div class="flex gap-2 mb-4">
+	<div class="flex gap-4 mb-4">
 		<table>
 			<tbody>
 				<tr>
@@ -85,8 +85,8 @@
 		</div>
 	</div>
 	<div class="flex flex-col w-1/2">
-		<div class="rounded-t-lg bg-gray-300 px-2 py-2 flex justify-between border-b-black border-b-solid border-b">
-				<div class="flex items-center gap-1">
+		<div class="rounded-t-lg bg-gray-300 px-2 py-2 flex justify-between border-b-gray-700 border-b-solid border-b">
+				<div class="flex items-center gap-2">
 					<span class="min-w-4 h-4 rounded-full" style="background-color: #EB6A5F;"></span>
 					<span class="min-w-4 h-4 rounded-full" style="background-color: #F5BD4E;"></span>
 					<span class="min-w-4 h-4 rounded-full" style="background-color: #65CC58;"></span>
@@ -99,8 +99,8 @@
 		</div>
 	</div>
 	<div class="w-full mt-4">
-		<a href="/" class="underline underline-offset-2 decoration-blue-500 text-white decoration-2">
-			Back
+		<a href="/" class="underline underline-offset-2 decoration-blue-500 text-white decoration-2 flex gap-2">
+			<img class="w-5 invert" src="{% static "back.svg" %}"> Back
 		</a>
 	</div>
 </div>

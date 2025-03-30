@@ -1,6 +1,8 @@
 {% load home_extras %}
-<pre class="px-[1rem] text-sm flex gap-[2rem] leading-snug font-mono" style="background-color: {{ colorscheme.background }};">
-<div style="color: {{ colorscheme.foreground }};">
+<pre class="p-[1px] text-sm leading-snug font-mono" style="background-color: {{ colorscheme.background }};">
+<span style="color: {{ colorscheme.foreground }};">$ neofetch</span>
+<div class="flex gap-[3rem]">
+<div style="color:{{ colorscheme.foreground }};">
 <span style="color:{{ colorscheme.color6 }};"></span><span style="font-weight:bold;color:{{ colorscheme.color6 }};">             /////////////
          /////////////////////
       ///////</span><span style="font-weight:bold;color:{{ colorscheme.foreground }};"></span><span style="font-weight:bold;color:{{ colorscheme.foreground }};">*767</span><span style="color:{{ colorscheme.color6 }};"></span><span style="font-weight:bold;color:{{ colorscheme.color6 }};">////////////////
@@ -45,5 +47,6 @@
 {% for i in 8|rangeloop %}{% with key="color"|concat:i %}<span style="background-color:{{ colorscheme|dict_key:key }};">   </span>{% endwith %}{% endfor %}
 {% for i in 8|rangeloop:16 %}{% with key="color"|concat:i %}<span style="background-color:{{ colorscheme|dict_key:key }};">   </span>{% endwith %}{% endfor %}
 
+</div>
 </div>
 </pre>
