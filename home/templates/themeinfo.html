@@ -1,5 +1,5 @@
 {% extends "home.html" %}
-{% load static %}
+{% load static home_extras %}
 {% block title %}
 	<title>{{ colorscheme.name }}</title>
 {% endblock title %}
@@ -84,6 +84,7 @@
 			</div>
 		</div>
 	</div>
+	<h1 class="text-3xl text-white" style="font-family: Acme;">Preview</h1>
 	<div class="flex gap-2">
 	{% include "neofetch.html" %}
 	</div>
