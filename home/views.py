@@ -1,3 +1,4 @@
+from django.views.decorators.http import require_http_methods
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
@@ -7,6 +8,7 @@ import json
 from home.models import ColorScheme 
 
 # Create your views here.
+@require_http_methods(["GET"])
 def home(request: HttpRequest) -> HttpResponse:
     f = open('example_themes/alacritty.toml', 'rb')
     left_text = f.read().decode('utf8')
@@ -21,6 +23,7 @@ def home(request: HttpRequest) -> HttpResponse:
         "left_text": left_text,
     })
 
+@require_http_methods(["GET"])
 def theme_list(request: HttpRequest) -> HttpResponse:
     colorschemes = ColorScheme.objects.order_by('name').all()
     context = {
@@ -28,6 +31,7 @@ def theme_list(request: HttpRequest) -> HttpResponse:
     }
     return render(request, "themes.html", context)
 
+@require_http_methods(["GET"])
 async def theme_view(request: HttpRequest, slug: str) -> HttpResponse:
     queryset = ColorScheme.objects.raw(
         """
@@ -43,6 +47,7 @@ async def theme_view(request: HttpRequest, slug: str) -> HttpResponse:
     context = { "colorscheme": colorscheme }
     return render(request, "themeinfo.html", context)
 
+@require_http_methods(["GET"])
 async def download_theme_windows_terminal(request: HttpRequest, slug: str) -> HttpResponse:
     queryset = ColorScheme.objects.raw(
         """
@@ -90,7 +95,8 @@ async def download_theme_windows_terminal(request: HttpRequest, slug: str) -> Ht
 
     return response
 
-async def download_theme_alacritty(request: HttpRequest, slug: str) -> HttpResponse:
+@require_http_methods(["GET"])
+async def download_theme_alacritty(_: HttpRequest, slug: str) -> HttpResponse:
     queryset = ColorScheme.objects.raw(
         """
         SELECT *
@@ -143,6 +149,52 @@ async def download_theme_alacritty(request: HttpRequest, slug: str) -> HttpRespo
     toml_text = toml.dumps(data)
 
     response = HttpResponse(toml_text.encode('utf8'), content_type="application/toml")
+    response["Content-Disposition"] = 'attachment; filename="%s"' % filename
+
+    return response
+
+@require_http_methods(["GET"])
+async def download_theme_kitty(_: HttpRequest, slug: str) -> HttpResponse:
+    queryset = ColorScheme.objects.raw(
+        """
+        SELECT *
+        FROM home_colorscheme
+        WHERE LOWER(REPLACE(name, ' ', '-')) = %s
+        """, [slug]
+    )
+    colorscheme = None
+    async for scheme in queryset:
+        colorscheme = scheme
+    if not colorscheme:
+        raise ObjectDoesNotExist()
+        # throw an error or something
+
+    filename = "%s.conf" % slug
+
+    data = f"""background {colorscheme.background}
+foreground {colorscheme.foreground}
+cursor {colorscheme.cursor}
+selection_background {colorscheme.color11}
+selection_foreground {colorscheme.background}
+color0 {colorscheme.color0}
+color8 {colorscheme.color8}
+color1 {colorscheme.color1}
+color9 {colorscheme.color9}
+color2 {colorscheme.color2}
+color10 {colorscheme.color10}
+color3 {colorscheme.color3}
+color11 {colorscheme.color11}
+color4 {colorscheme.color4}
+color12 {colorscheme.color12}
+color5 {colorscheme.color5}
+color13 {colorscheme.color13}
+color6 {colorscheme.color6}
+color14 {colorscheme.color14}
+color7 {colorscheme.color7}
+color15 {colorscheme.color15}
+"""
+
+    response = HttpResponse(data.encode('utf8'), content_type="text/plain")
     response["Content-Disposition"] = 'attachment; filename="%s"' % filename
 
     return response

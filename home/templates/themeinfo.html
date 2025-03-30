@@ -6,81 +6,86 @@
 {% block root %}
 <div class="w-full p-4 text-lg">
 	<h1 class="text-white text-4xl mb-2" style="font-family: Acme;">{{ colorscheme.name }}</h1>
-	<table>
-		<tbody>
-			<tr>
-				<td style="background-color: {{ colorscheme.foreground }};color: {{ colorscheme.foreground }};" class="border border-dotted border-white">
-					o
-				</td>
-				<td style="background-color: {{ colorscheme.color0 }};color: {{ colorscheme.color0 }};" class="border border-dotted border-white">
-					o
-				</td>
-				<td style="background-color: {{ colorscheme.color1 }};color: {{ colorscheme.color1 }};" class="border border-dotted border-white">
-					o
-				</td>
-				<td style="background-color: {{ colorscheme.color2 }};color: {{ colorscheme.color2 }};" class="border border-dotted border-white">
-					o
-				</td>
-				<td style="background-color: {{ colorscheme.color3 }};color: {{ colorscheme.color3 }}" class="border border-dotted border-white">
-					o
-				</td>
-				<td style="background-color: {{ colorscheme.color4 }};color: {{ colorscheme.color4 }};" class="border border-dotted border-white">
-					o
-				</td>
-				<td style="background-color: {{ colorscheme.color5 }};color: {{ colorscheme.color5 }};" class="border border-dotted border-white">
-					o
-				</td>
-				<td style="background-color: {{ colorscheme.color6 }};color: {{ colorscheme.color6 }};" class="border border-dotted border-white">
-					o
-				</td>
-				<td style="background-color: {{ colorscheme.color7 }};color: {{ colorscheme.color7 }};" class="border border-dotted border-white">
-					o
-				</td>
-			</tr>
-			<tr>
-				<td style="background-color: {{ colorscheme.background }};color: {{ colorscheme.background }};" class="border border-dotted border-white">
-					o
-				</td>
-				<td style="background-color: {{ colorscheme.color8 }};color: {{ colorscheme.color8 }};" class="border border-dotted border-white">
-					o
-				</td>
-				<td style="background-color: {{ colorscheme.color9 }};color: {{ colorscheme.color9 }};" class="border border-dotted border-white">
-					o
-				</td>
-				<td style="background-color: {{ colorscheme.color10 }};color: {{ colorscheme.color10 }};" class="border border-dotted border-white">
-					o
-				</td>
-				<td style="background-color: {{ colorscheme.color11 }};color: {{ colorscheme.color11 }};" class="border border-dotted border-white">
-					o
-				</td>
-				<td style="background-color: {{ colorscheme.color12 }};color: {{ colorscheme.color12 }};" class="border border-dotted border-white">
-					o
-				</td>
-				<td style="background-color: {{ colorscheme.color13 }};color: {{ colorscheme.color13 }};" class="border border-dotted border-white">
-					o
-				</td>
-				<td style="background-color: {{ colorscheme.color14 }};color: {{ colorscheme.color14 }}" class="border border-dotted border-white">
-					o
-				</td>
-				<td style="background-color: {{ colorscheme.color15 }};color: {{ colorscheme.color15 }};" class="border border-dotted border-white">
-					o
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<div class="flex flex-col gap-2 mt-4">
-		<div class="flex gap-2 text-white">
-			<img class="w-8" src="{% static "windows_terminal.svg" %}">
-			<a href="/download/windows/{{ colorscheme.name|slugify }}" class="underline underline-offset-2 decoration-2 decoration-blue-500">Windows Terminal Download</a>
+	<div class="flex gap-2 mb-4">
+		<table>
+			<tbody>
+				<tr>
+					<td style="background-color: {{ colorscheme.foreground }};color: {{ colorscheme.foreground }};" class="border border-dotted border-white">
+						o
+					</td>
+					<td style="background-color: {{ colorscheme.color0 }};color: {{ colorscheme.color0 }};" class="border border-dotted border-white">
+						o
+					</td>
+					<td style="background-color: {{ colorscheme.color1 }};color: {{ colorscheme.color1 }};" class="border border-dotted border-white">
+						o
+					</td>
+					<td style="background-color: {{ colorscheme.color2 }};color: {{ colorscheme.color2 }};" class="border border-dotted border-white">
+						o
+					</td>
+					<td style="background-color: {{ colorscheme.color3 }};color: {{ colorscheme.color3 }}" class="border border-dotted border-white">
+						o
+					</td>
+					<td style="background-color: {{ colorscheme.color4 }};color: {{ colorscheme.color4 }};" class="border border-dotted border-white">
+						o
+					</td>
+					<td style="background-color: {{ colorscheme.color5 }};color: {{ colorscheme.color5 }};" class="border border-dotted border-white">
+						o
+					</td>
+					<td style="background-color: {{ colorscheme.color6 }};color: {{ colorscheme.color6 }};" class="border border-dotted border-white">
+						o
+					</td>
+					<td style="background-color: {{ colorscheme.color7 }};color: {{ colorscheme.color7 }};" class="border border-dotted border-white">
+						o
+					</td>
+				</tr>
+				<tr>
+					<td style="background-color: {{ colorscheme.background }};color: {{ colorscheme.background }};" class="border border-dotted border-white">
+						o
+					</td>
+					<td style="background-color: {{ colorscheme.color8 }};color: {{ colorscheme.color8 }};" class="border border-dotted border-white">
+						o
+					</td>
+					<td style="background-color: {{ colorscheme.color9 }};color: {{ colorscheme.color9 }};" class="border border-dotted border-white">
+						o
+					</td>
+					<td style="background-color: {{ colorscheme.color10 }};color: {{ colorscheme.color10 }};" class="border border-dotted border-white">
+						o
+					</td>
+					<td style="background-color: {{ colorscheme.color11 }};color: {{ colorscheme.color11 }};" class="border border-dotted border-white">
+						o
+					</td>
+					<td style="background-color: {{ colorscheme.color12 }};color: {{ colorscheme.color12 }};" class="border border-dotted border-white">
+						o
+					</td>
+					<td style="background-color: {{ colorscheme.color13 }};color: {{ colorscheme.color13 }};" class="border border-dotted border-white">
+						o
+					</td>
+					<td style="background-color: {{ colorscheme.color14 }};color: {{ colorscheme.color14 }}" class="border border-dotted border-white">
+						o
+					</td>
+					<td style="background-color: {{ colorscheme.color15 }};color: {{ colorscheme.color15 }};" class="border border-dotted border-white">
+						o
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="flex flex-col gap-2">
+			<div class="flex gap-2 text-white">
+				<img class="w-8" src="{% static "windows_terminal.svg" %}">
+				<a href="/download/windows/{{ colorscheme.name|slugify }}" class="underline underline-offset-2 decoration-2 decoration-blue-500">Windows Terminal Download</a>
+			</div>
+			<div class="flex gap-2 text-white">
+				<img class="w-8" src="{% static "kitty.svg" %}">
+				<a href="/download/kitty/{{ colorscheme.name|slugify }}" class="underline underline-offset-2 decoration-2 decoration-blue-500">Kitty Download</a>
+			</div>
+			<div class="flex gap-2 text-white">
+				<img class="w-8" src="{% static "alacritty.svg" %}">
+				<a href="/download/alacritty/{{ colorscheme.name|slugify }}" class="underline underline-offset-2 decoration-2 decoration-blue-500">Alacritty Download</a>
+			</div>
 		</div>
-		<div class="flex gap-2 text-white">
-			<img class="w-8" src="{% static "kitty.svg" %}">
-			<a href="" class="underline underline-offset-2 decoration-2 decoration-blue-500">Kitty Download</a>
-		</div>
-		<div class="flex gap-2 text-white">
-			<img class="w-8" src="{% static "alacritty.svg" %}">
-			<a href="/download/alacritty/{{ colorscheme.name|slugify }}" class="underline underline-offset-2 decoration-2 decoration-blue-500">Alacritty Download</a>
-		</div>
+	</div>
+	<div class="flex gap-2">
+	{% include "neofetch.html" %}
 	</div>
 	<div class="w-full mt-4">
 		<a href="/" class="underline underline-offset-2 decoration-blue-500 text-white decoration-2">
