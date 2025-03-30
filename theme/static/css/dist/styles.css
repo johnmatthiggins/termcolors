@@ -1023,6 +1023,14 @@ select {
   padding: 1px;
 }
 
+.p-\[2px\] {
+  padding: 2px;
+}
+
+.p-\[3px\] {
+  padding: 3px;
+}
+
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -1128,6 +1136,14 @@ select {
 
 .leading-snug {
   line-height: 1.375;
+}
+
+.leading-\[1\.1\] {
+  line-height: 1.1;
+}
+
+.leading-\[1\.2\] {
+  line-height: 1.2;
 }
 
 .tracking-normal {
