@@ -4,7 +4,7 @@
 	<title>{{ colorscheme.name }}</title>
 {% endblock title %}
 {% block root %}
-<div class="w-full p-4">
+<div class="w-full p-4 text-lg">
 	<h1 class="text-white text-4xl mb-2" style="font-family: Acme;">{{ colorscheme.name }}</h1>
 	<table>
 		<tbody>
@@ -71,19 +71,19 @@
 	<div class="flex flex-col gap-2 mt-4">
 		<div class="flex gap-2 text-white">
 			<img class="w-8" src="{% static "windows_terminal.svg" %}">
-			<a href="/download/windows/{{ colorscheme.name|slugify }}" class="underline underline-offset-2 decoration-blue-500">Windows Terminal Download</a>
+			<a href="/download/windows/{{ colorscheme.name|slugify }}" class="underline underline-offset-2 decoration-2 decoration-blue-500">Windows Terminal Download</a>
 		</div>
 		<div class="flex gap-2 text-white">
 			<img class="w-8" src="{% static "kitty.svg" %}">
-			<a href="" class="underline underline-offset-2 decoration-blue-500">Kitty Download</a>
+			<a href="" class="underline underline-offset-2 decoration-2 decoration-blue-500">Kitty Download</a>
 		</div>
 		<div class="flex gap-2 text-white">
 			<img class="w-8" src="{% static "alacritty.svg" %}">
-			<a href="/download/alacritty/{{ colorscheme.name|slugify }}" class="underline underline-offset-2 decoration-blue-500">Alacritty Download</a>
+			<a href="/download/alacritty/{{ colorscheme.name|slugify }}" class="underline underline-offset-2 decoration-2 decoration-blue-500">Alacritty Download</a>
 		</div>
 	</div>
 	<div class="w-full mt-4">
-		<a href="/" class="underline underline-offset-2 decoration-blue-500 text-white">
+		<a href="/" class="underline underline-offset-2 decoration-blue-500 text-white decoration-2">
 			Back
 		</a>
 	</div>
