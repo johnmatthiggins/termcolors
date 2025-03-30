@@ -5,7 +5,7 @@
 {% endblock title %}
 {% block root %}
 <div class="w-full p-4 text-lg">
-	<h1 class="text-white text-4xl mb-2" style="font-family: Acme;">{{ colorscheme.name }}</h1>
+	<h1 class="text-white text-3xl mb-2" style="font-family: Acme;">{{ colorscheme.name }}</h1>
 	<div class="flex gap-2 mb-4">
 		<table>
 			<tbody>
@@ -84,9 +84,19 @@
 			</div>
 		</div>
 	</div>
-	<h1 class="text-3xl text-white" style="font-family: Acme;">Preview</h1>
-	<div class="flex gap-2">
-	{% include "neofetch.html" %}
+	<div class="flex flex-col w-1/2">
+		<div class="rounded-t-lg bg-gray-300 px-2 py-2 flex justify-between border-b-black border-b-solid border-b">
+				<div class="flex items-center gap-1">
+					<span class="min-w-4 h-4 rounded-full" style="background-color: #EB6A5F;"></span>
+					<span class="min-w-4 h-4 rounded-full" style="background-color: #F5BD4E;"></span>
+					<span class="min-w-4 h-4 rounded-full" style="background-color: #65CC58;"></span>
+				</div>
+				<div class="font-bold" style="font-family: Inter;">
+				</div>
+		</div>
+		<div>
+		{% include "neofetch.html" %}
+		</div>
 	</div>
 	<div class="w-full mt-4">
 		<a href="/" class="underline underline-offset-2 decoration-blue-500 text-white decoration-2">
