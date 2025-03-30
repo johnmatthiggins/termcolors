@@ -854,6 +854,10 @@ select {
   flex-direction: column;
 }
 
+.items-start {
+  align-items: flex-start;
+}
+
 .items-center {
   align-items: center;
 }
@@ -1001,6 +1005,10 @@ select {
 
 .decoration-blue-500 {
   text-decoration-color: #3b82f6;
+}
+
+.decoration-2 {
+  text-decoration-thickness: 2px;
 }
 
 .underline-offset-2 {

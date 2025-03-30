@@ -8,6 +8,8 @@ from home import views
 urlpatterns = [
     path("", views.theme_list),
     path("<str:slug>/", views.theme_view),
+    path("download/windows/<str:slug>/", views.download_theme_windows_terminal),
+    path("download/alacritty/<str:slug>/", views.download_theme_alacritty),
     path("admin/", admin.site.urls),
 ]
 
