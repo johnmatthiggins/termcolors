@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
+import json
 
 from home.models import ColorScheme 
 
@@ -39,3 +40,49 @@ async def theme_view(request: HttpRequest, slug: str) -> HttpResponse:
 
     context = { "colorscheme": colorscheme }
     return render(request, "themeinfo.html", context)
+
+async def download_theme_windows_terminal(request: HttpRequest, slug: str) -> HttpResponse:
+    queryset = ColorScheme.objects.raw(
+        """
+        SELECT *
+        FROM home_colorscheme
+        WHERE LOWER(REPLACE(name, ' ', '-')) = %s
+        """, [slug]
+    )
+    colorscheme = None
+    async for scheme in queryset:
+        colorscheme = scheme
+    if not colorscheme:
+        # throw an error or something
+
+    filename = "%s.json" % slug
+
+    json_text = json.dumps({
+        "name": colorscheme.name,
+        "cursorColor": colorscheme.cursor_foreground,
+        "selectionBackground": colorscheme.cursor_background,
+        "background": colorscheme.background,
+        "foreground": colorscheme.foreground,
+        "black": colorscheme.color0,
+        "blue": colorscheme.color1,
+        "cyan": colorscheme.color2,
+        "green": colorscheme.color3,
+        "purple": colorscheme.color4,
+        "red": colorscheme.color5,
+        "white": colorscheme.color6,
+        "yellow": colorscheme.color7,
+
+        "brightBlack": colorscheme.color8,
+        "brightBlue": colorscheme.color9,
+        "brightCyan": colorscheme.color10,
+        "brightGreen": colorscheme.color11,
+        "brightPurple": colorscheme.color12,
+        "brightRed": colorscheme.color13,
+        "brightWhite": colorscheme.color14,
+        "brightYellow": colorscheme.color15,
+    })
+
+    response = HttpResponse(json_text.encode('utf8'), content_type="application/json")
+    response["Content-Disposition"] = 'attachment; filename="%s"' % filename
+    
+    return 
