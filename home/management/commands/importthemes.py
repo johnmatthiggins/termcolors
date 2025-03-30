@@ -20,6 +20,46 @@ def _filename_to_proper_name(path):
 
     return " ".join(words)
 
+def _convert(filepath, format):
+    with open(filepath, "rb") as f:
+        try:
+            data = ThemeConverter(f.read().decode('utf8'), format).dict()
+            if not data["cursor_bg"] or not data["cursor_fg"]:
+                raise Exception("Oh no! Could not parse the file!")
+
+            new_scheme = ColorScheme(
+                path=filepath,
+                name=_filename_to_proper_name(filepath),
+                background=data["background"],
+                foreground=data["foreground"],
+                cursor_foreground=data["cursor_fg"],
+                cursor_background=data["cursor_bg"],
+                color0=data["color0"],
+                color1=data["color1"],
+                color2=data["color2"],
+                color3=data["color3"],
+                color4=data["color4"],
+                color5=data["color5"],
+                color6=data["color6"],
+                color7=data["color7"],
+                color8=data["color8"],
+                color9=data["color9"],
+                color10=data["color10"],
+                color11=data["color11"],
+                color12=data["color12"],
+                color13=data["color13"],
+                color14=data["color14"],
+                color15=data["color15"],
+                contrast_ratio=data["contrast_ratio"],
+            )
+            print("Successfully parsed %s" % filepath)
+            return new_scheme
+        except Exception as err:
+            print("Theme found at %s could not be parsed!" % filepath)
+            print(err)
+
+            return None
+
 class Command(BaseCommand):
     help = "Parses themes and installs them into the database"
 
@@ -27,49 +67,27 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
+        schemes = []
+
         # iterate through a bunch of alacritty color schemes
         # parse each one and save it to the database.
-        theme_dir = settings.MEDIA_ROOT / "themes" / "themes"
-        schemes = []
+        theme_dir = settings.MEDIA_ROOT / "themes" / "alacritty" / "themes"
         for theme_path in os.listdir(theme_dir):
             full_path = theme_dir / theme_path
 
-            with open(full_path, "rb") as f:
-                try:
-                    data = ThemeConverter(f.read().decode('utf8'), ThemeFormat.ALACRITTY_TOML).dict()
-                    if not data["cursor_bg"] or not data["cursor_fg"]:
-                        continue
+            scheme = _convert(full_path, ThemeFormat.ALACRITTY_TOML)
+            if scheme:
+                if not any([colorscheme for colorscheme in schemes if colorscheme.name == scheme.name]):
+                    schemes.append(scheme)
 
-                    new_scheme = ColorScheme(
-                        path=full_path,
-                        name=_filename_to_proper_name(full_path),
-                        background=data["background"],
-                        foreground=data["foreground"],
-                        cursor_foreground=data["cursor_fg"],
-                        cursor_background=data["cursor_bg"],
-                        color0=data["color0"],
-                        color1=data["color1"],
-                        color2=data["color2"],
-                        color3=data["color3"],
-                        color4=data["color4"],
-                        color5=data["color5"],
-                        color6=data["color6"],
-                        color7=data["color7"],
-                        color8=data["color8"],
-                        color9=data["color9"],
-                        color10=data["color10"],
-                        color11=data["color11"],
-                        color12=data["color12"],
-                        color13=data["color13"],
-                        color14=data["color14"],
-                        color15=data["color15"],
-                        contrast_ratio=data["contrast_ratio"],
-                    )
-                    schemes.append(new_scheme)
-                    print("Successfully parsed %s" % full_path)
-                except Exception as err:
-                    print("Theme found at %s could not be parsed!" % full_path)
-                    print(err)
+        theme_dir = settings.MEDIA_ROOT / "themes" / "kitty" / "themes"
+        for theme_path in os.listdir(theme_dir):
+            full_path = theme_dir / theme_path
 
-        print(schemes)
+            scheme = _convert(full_path, ThemeFormat.KITTY)
+            if scheme:
+                if not any([colorscheme for colorscheme in schemes if colorscheme.name == scheme.name]):
+                    schemes.append(scheme)
+
+        print("Successfully parsed %d themes..." % len(schemes))
         ColorScheme.objects.bulk_create(schemes)

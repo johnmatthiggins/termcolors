@@ -18,12 +18,8 @@ def home(request: HttpRequest) -> HttpResponse:
         "left_text": left_text,
     })
 
-async def theme_list(request: HttpRequest) -> HttpResponse:
-    queryset = ColorScheme.objects.all()
-    colorschemes = []
-    async for colorscheme in queryset:
-        colorschemes.append(colorscheme)
-        
+def theme_list(request: HttpRequest) -> HttpResponse:
+    colorschemes = ColorScheme.objects.order_by('name').all()
     context = {
         "colorschemes": colorschemes,
     }
