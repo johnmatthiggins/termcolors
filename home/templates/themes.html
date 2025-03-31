@@ -34,10 +34,13 @@
 						id="{{ scheme.name|slugify }}"
 						class="text-lg"
 						hx-trigger="click"
+						hx-history="false"
 						hx-get="/{{ scheme.name|slugify }}/"
 						hx-swap="innerHTML"
 						hx-target="#preview"
 						hx-replace-url="/#{{ scheme.name|slugify }}"
+						hx-indicator="#loading-indicator"
+						role="button"
 					>
 						<td class="flex flex-col justify-start pl-1">
 							<h2 class="grow flex items-start hover:cursor-pointer hover:bg-white hover:text-black">
@@ -99,6 +102,17 @@
 				<div>
 					<p>Shoutout to <a class="underline underline-offset-2" href="https://github.com/alacritty">@alacritty</a> and <a class="underline underline-offset-2" href="https://github.com/dexpota">@dexpota</a> for providing some amazing color schemes.</p>
 				</div>
+				<div class="mt-8" id="loading-indicator">
+					<img class="animate-spin invert w-8" src="{% static "loading.svg" %}">
+				</div>
+				<style>
+					#loading-indicator {
+						display: none;
+					}
+					#loading-indicator[hx-request] {
+						display: block;
+					}
+				</style>
 			</div>
 		</div>
 	</div>
@@ -144,10 +158,8 @@
 		});
 
 		const hash = window.location.hash;
-		console.log(hash);
 		if (hash) {
-			// document.querySelector(`${hash}`).click();
-			document.querySelector(`${hash}`).dispatchEvent(new Event("mouseenter"));
+			document.querySelector(`${hash}`).click();
 		}
 	});
 	</script>
