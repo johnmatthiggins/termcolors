@@ -33,7 +33,7 @@
 					<tr
 						id="{{ scheme.name|slugify }}"
 						class="text-lg"
-						hx-trigger="mouseenter delay:500ms"
+						hx-trigger="click"
 						hx-get="/{{ scheme.name|slugify }}/"
 						hx-swap="innerHTML"
 						hx-target="#preview"
