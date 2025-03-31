@@ -858,6 +858,14 @@ select {
   margin-right: 0.25rem;
 }
 
+.ml-\[-1\.5rem\] {
+  margin-left: -1.5rem;
+}
+
+.ml-\[-2rem\] {
+  margin-left: -2rem;
+}
+
 .block {
   display: block;
 }
