@@ -4,14 +4,14 @@
 	<title>{{ colorscheme.name }}</title>
 {% endblock title %}
 {% block root %}
-<div class="w-full text-lg">
+<div class="text-lg" id="preview-root">
 	<h1 class="text-white text-3xl mb-2 font-bold" style="font-family: Inter;">{{ colorscheme.name }}</h1>
 	<div class="flex flex-col mb-4">
 		<div class="rounded-t-lg bg-gray-300 px-2 py-2 flex justify-between border-b-gray-700 border-b-solid border-b">
-				<div class="flex items-center gap-2">
-					<span class="min-w-4 h-4 rounded-full" style="background-color: #EB6A5F;"></span>
-					<span class="min-w-4 h-4 rounded-full" style="background-color: #F5BD4E;"></span>
-					<span class="min-w-4 h-4 rounded-full" style="background-color: #65CC58;"></span>
+				<div class="flex items-center gap-1">
+					<span class="min-w-3 h-3 rounded-full" style="background-color: #EB6A5F;"></span>
+					<span class="min-w-3 h-3 rounded-full" style="background-color: #F5BD4E;"></span>
+					<span class="min-w-3 h-3 rounded-full" style="background-color: #65CC58;"></span>
 				</div>
 				<div class="font-bold" style="font-family: Inter;">
 				</div>
@@ -98,14 +98,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="w-full mt-4">
-		<a href="/" class="underline underline-offset-2 decoration-blue-500 text-white decoration-2 flex gap-2">
-			<img class="w-5 invert" src="{% static "back.svg" %}"> Back
-		</a>
-	</div>
 </div>
 <style>
-td {
+#preview-root td {
 	min-width: 3rem;
 	min-height: 3rem;
 }
