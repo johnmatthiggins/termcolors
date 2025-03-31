@@ -16,7 +16,8 @@ dependencies = [
     "django-browser-reload (>=1.18.0,<2.0.0)",
     "ruff (>=0.11.2,<0.12.0)",
     "django-tailwind[reload] (>=3.8.0,<4.0.0)",
-    "django-minify-html (>=1.12.0,<2.0.0)"
+    "django-minify-html (>=1.12.0,<2.0.0)",
+    "uvicorn (>=0.34.0,<0.35.0)"
 ]
 
 
