@@ -8,13 +8,13 @@
 	<div class="flex justify-between">
 		<h1 class="text-white text-3xl mb-2 font-bold" style="font-family: Inter;">{{ colorscheme.name }}</h1>
 		<div id="loading-indicator">
-			<img class="w-8 invert" src="{% static "loading.svg" %}">
+			<img class="w-7 invert" src="{% static "loading.svg" %}">
 		</div>
 		<style>
 			#loading-indicator {
 				display: none;
 			}
-			#loading-indicator[hx-request] {
+			#loading-indicator.htmx-request {
 				display: block;
 			}
 		</style>
