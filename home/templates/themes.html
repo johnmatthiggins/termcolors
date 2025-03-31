@@ -146,8 +146,8 @@
 		const hash = window.location.hash;
 		console.log(hash);
 		if (hash) {
-			document.querySelector(`${hash} h2`).click();
-			document.querySelector(`${hash} h2`).dispatchEvent(new Event("mouseenter"));
+			// document.querySelector(`${hash}`).click();
+			document.querySelector(`${hash}`).dispatchEvent(new Event("mouseenter"));
 		}
 	});
 	</script>
