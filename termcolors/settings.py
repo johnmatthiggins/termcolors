@@ -130,6 +130,7 @@ STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
     BASE_DIR / "home" / "static",
+    BASE_DIR / "theme" / "static",
 ]
 
 MEDIA_URL = "media/"
