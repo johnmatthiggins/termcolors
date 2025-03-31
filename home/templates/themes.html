@@ -159,7 +159,8 @@
 
 		const hash = window.location.hash;
 		if (hash) {
-			document.querySelector(`${hash}`).click();
+			const id = String(hash.slice(1));
+			document.querySelector(`[id="${id}"]`).click();
 		}
 	});
 	</script>
