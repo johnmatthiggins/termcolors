@@ -10,13 +10,13 @@
 				<h1 class="pr-4 text-4xl italic text-white" style="font-family: Acme;">TERMCOLORS.dev</h1>
 				<div class="flex">
 					<input type="search" class="w-96 text-white border-2 border-white border-solid rounded-lg bg-black">
-					<img class="ml-[-2.5rem] w-8 invert" src="{% static "search.svg" %}">
+					<img class="ml-[-2.5rem] w-6 invert" src="{% static "search.svg" %}">
 				</div>
 			</div>
 			<table>
 				<thead class="text-lg">
 					<tr>
-						<th class="text-left" style="font-family: Inter;">Name</th>
+						<th class="text-left pl-1" style="font-family: Inter;">Name</th>
 						<th class="max-w-8">Colors</th>
 						<th></th>
 						<th></th>
@@ -30,63 +30,62 @@
 				</thead>
 				<tbody style="font-family: Inter;">
 				{% for scheme in colorschemes %}
-					<tr id="{{ scheme.name|slugify }}" class="text-lg">
-						<td class="min-w-8 flex flex-col justify-center">
-							<h2
-								hx-trigger="mouseenter delay:500ms"
-								hx-get="/{{ scheme.name|slugify }}/"
-								hx-swap="innerHTML"
-								hx-target="#preview"
-								hx-replace-url="/#{{ scheme.name|slugify }}"
-								class="flex items-start hover:cursor-pointer hover:underline hover:underline-offset-2"
-							>
+					<tr
+						id="{{ scheme.name|slugify }}"
+						class="text-lg"
+						hx-trigger="mouseenter delay:500ms"
+						hx-get="/{{ scheme.name|slugify }}/"
+						hx-swap="innerHTML"
+						hx-target="#preview"
+						hx-replace-url="/#{{ scheme.name|slugify }}"
+					>
+						<td class="flex flex-col justify-start pl-1">
+							<h2 class="grow flex items-start hover:cursor-pointer hover:bg-white hover:text-black">
 								{{ scheme.name }}
 							</h2>
+							<hr class="border border-white border-dashed mr-1" />
 							{% if scheme.contrast_ratio > 16 %}
-								<div class="bg-gray-200 rounded-full no-underline mt-1 py-1 px-3 text-gray-700 w-fit text-sm">
+								<div class="bg-white rounded-md no-underline mt-1 py-1 px-3 text-gray-700 w-fit text-sm">
 									High contrast
 								</div>
+							{% else %}
 							{% endif %}
 						</td>
-						<td class="min-h-16">
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.foreground }};"></div>
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.background }};"></div>
+						<td>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.foreground }};"></div>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.background }};"></div>
 						</td>
-						<td class="min-h-16">
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color0 }};"></div>
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color8 }};"></div>
+						<td>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.color0 }};"></div>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.color8 }};"></div>
 						</td>
-						<td class="min-h-16">
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color1 }};"></div>
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color9 }};"></div>
+						<td>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.color1 }};"></div>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.color9 }};"></div>
 						</td>
-						<td class="min-h-16">
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color2 }};"></div>
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color10 }};"></div>
+						<td>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.color2 }};"></div>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.color10 }};"></div>
 						</td>
-						<td class="min-h-16">
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color3 }};"></div>
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color11 }};"></div>
+						<td>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.color3 }};"></div>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.color11 }};"></div>
 						</td>
-						<td class="min-h-16">
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color4 }};"></div>
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color12 }};"></div>
+						<td>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.color4 }};"></div>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.color12 }};"></div>
 						</td>
-						<td class="min-h-16">
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color5 }};"></div>
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color13 }};"></div>
+						<td>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.color5 }};"></div>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.color13 }};"></div>
 						</td>
-						<td class="min-h-16">
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color6 }};"></div>
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color14 }};"></div>
+						<td>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.color6 }};"></div>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.color14 }};"></div>
 						</td>
-						<td class="min-h-16">
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color7 }};"></div>
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color15 }};"></div>
-						</td>
-						<td class="min-h-16">
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color7 }};"></div>
-							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-dotted border-white" style="background-color:{{ scheme.color15 }};"></div>
+						<td>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.color7 }};"></div>
+							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.color15 }};"></div>
 						</td>
 					</tr>
 				{% endfor %}
@@ -148,6 +147,7 @@
 		console.log(hash);
 		if (hash) {
 			document.querySelector(`${hash} h2`).click();
+			document.querySelector(`${hash} h2`).dispatchEvent(new Event("mouseenter"));
 		}
 	});
 	</script>

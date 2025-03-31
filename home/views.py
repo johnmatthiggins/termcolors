@@ -25,7 +25,9 @@ def home(request: HttpRequest) -> HttpResponse:
 
 @require_http_methods(["GET"])
 def theme_list(request: HttpRequest) -> HttpResponse:
-    colorschemes = ColorScheme.objects.order_by('name').all()
+    colorschemes = ColorScheme.objects.filter(
+        name__regex=r"[^\(|\)]"
+    ).order_by('name')
     context = {
         "colorschemes": colorschemes,
     }
@@ -48,7 +50,7 @@ async def theme_view(request: HttpRequest, slug: str) -> HttpResponse:
     return render(request, "themeinfo.html", context)
 
 @require_http_methods(["GET"])
-async def download_theme_windows_terminal(request: HttpRequest, slug: str) -> HttpResponse:
+async def download_theme_windows_terminal(_: HttpRequest, slug: str) -> HttpResponse:
     queryset = ColorScheme.objects.raw(
         """
         SELECT *
