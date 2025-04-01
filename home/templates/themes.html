@@ -44,7 +44,7 @@
 						role="button"
 					>
 						<td class="flex flex-col justify-start pl-1">
-							<h2 class="grow flex items-start hover:cursor-pointer hover:bg-white hover:text-black">
+							<h2 class="transition grow flex items-start hover:cursor-pointer hover:bg-white hover:text-black">
 								{{ scheme.name }}
 							</h2>
 							<hr class="border border-white border-dashed mr-1" />
@@ -163,13 +163,6 @@
 			const id = String(hash.slice(1));
 			document.querySelector(`[id="${id}"]`).click();
 		}
-
-		document.addEventListener('htmx:beforeRequest', () => {
-			const target = document.querySelector('#theme-name');
-			if (target) {
-				target.classList.add("hidden");
-			}
-		});
 	});
 	</script>
 {% endspaceless %}

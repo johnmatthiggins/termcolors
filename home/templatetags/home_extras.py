@@ -4,7 +4,6 @@ register = template.Library()
 
 @register.filter(name="dict_key")
 def dict_key(d, k):
-    print(d)
     '''Returns the given key from a dictionary.'''
 
     try:
