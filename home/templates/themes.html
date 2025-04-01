@@ -4,6 +4,7 @@
 	<title>Themes</title>
 {% endblock title %}
 {% block root %}
+{% spaceless %}
 	<div class="w-full flex justify-between bg-black text-white" style="font-family: Inter;">
 		<div class="mx-2 md:px-0 md:w-7/8 lg:px-0 lg:w-1/3 pr-1 py-4">
 			<div class="flex justify-between mb-2">
@@ -35,7 +36,7 @@
 						class="text-lg"
 						hx-trigger="click"
 						hx-history="false"
-						hx-get="/{{ scheme.name|slugify }}/"
+						hx-get="/preview/{{ scheme.name|slugify }}/"
 						hx-swap="innerHTML"
 						hx-target="#preview"
 						hx-replace-url="/#{{ scheme.name|slugify }}"
@@ -162,6 +163,14 @@
 			const id = String(hash.slice(1));
 			document.querySelector(`[id="${id}"]`).click();
 		}
+
+		document.addEventListener('htmx:beforeRequest', () => {
+			const target = document.querySelector('#theme-name');
+			if (target) {
+				target.classList.add("hidden");
+			}
+		});
 	});
 	</script>
+{% endspaceless %}
 {% endblock root %}

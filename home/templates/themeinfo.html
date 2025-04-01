@@ -6,7 +6,9 @@
 {% block root %}
 <div class="text-lg" id="preview-root">
 	<div class="flex justify-between">
-		<h1 class="text-white text-3xl mb-2 font-bold" style="font-family: Inter;">{{ colorscheme.name }}</h1>
+		<h1 id="theme-name" class="text-white text-3xl mb-2 font-bold" style="font-family: Inter;">
+				{{ colorscheme.name }}
+		</h1>
 		<div id="loading-indicator">
 			<img class="animate-spin w-7 invert" src="{% static "loading.svg" %}">
 		</div>
@@ -33,6 +35,7 @@
 		{% include "neofetch.html" %}
 		</div>
 	</div>
+{% spaceless %}
 	<div class="flex gap-4">
 		<table>
 			<tbody>
@@ -111,6 +114,7 @@
 			</div>
 		</div>
 	</div>
+{% endspaceless %}
 </div>
 <style>
 #preview-root td {
