@@ -10,7 +10,7 @@
 			<div class="flex justify-between mb-2">
 				<h1 class="pr-4 text-4xl italic text-white" style="font-family: Acme;">TERMCOLORS.dev</h1>
 				<div class="flex">
-					<input type="search" class="w-96 text-white border-2 border-white border-solid rounded-lg bg-black">
+					<input id="page-search" type="search" class="w-96 text-white border-2 border-white border-solid rounded-lg bg-black">
 					<img class="ml-[-2rem] w-5 invert" src="{% static "search.svg" %}">
 				</div>
 			</div>
@@ -95,6 +95,9 @@
 				{% endfor %}
 				</tbody>
 			</table>
+			<button id="back-to-top" class="mt-4 w-40 bg-pink-500 text-white py-2 px-4 rounded-md flex items-center gap-2">
+				<img class="invert w-6 rotate-90" src="{% static "back.svg" %}"> Back to top
+			</button>
 		</div>
 		<div class="mx-2 fixed right-0 top-4 h-[80vh] w-[50vw]" id="preview">
 			<div class="h-full w-full flex flex-col justify-center items-center border-gray-200 border border-dashed">
@@ -163,7 +166,25 @@
 			const id = String(hash.slice(1));
 			document.querySelector(`[id="${id}"]`).click();
 		}
+
+		document.addEventListener('htmx:beforeRequest', (event) => {
+			const { target } = event;
+			document.querySelectorAll('.selected').forEach((element) => {
+				element.classList.remove('selected');
+			});
+			target.classList.add('selected');
+		});
+
+		document.querySelector('[id="back-to-top"]').addEventListener('click', () => {
+			window.scrollTo(0, 0);
+		});
 	});
 	</script>
+	<style>
+	.selected h2 {
+		background-color: white;
+		color: black;
+	}
+	</style>
 {% endspaceless %}
 {% endblock root %}
