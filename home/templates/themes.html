@@ -141,7 +141,8 @@
 				rows.push(element);
 			}
 		});
-		document.querySelector('[type="search"]').addEventListener("input", (event) => {
+		const searchInput = document.querySelector('[type="search"]');
+		const searchCallback = (event) => {
 			const text = event.target.value;
 			const matchingRows = [];
 
@@ -159,7 +160,11 @@
 			matchingRows.forEach((row) => {
 				tableBody.appendChild(row);
 			});
-		});
+		};
+		searchInput.addEventListener("input", searchCallback);
+		if (searchInput.value) {
+			searchCallback({ target: searchInput });
+		}
 
 		document.addEventListener('htmx:beforeRequest', (event) => {
 			const { target } = event;
