@@ -1,9 +1,20 @@
 from django.core.management.base import BaseCommand
+import colorsys
 import os
 from django.conf import settings
 
 from home.models import ColorScheme
 from home.convert import ThemeConverter, ThemeFormat
+
+def _lightness(rgb_code):
+    # remove hash
+    rgb_code = rgb_code[1:]
+    r = int(rgb_code[:2], 16)
+    g = int(rgb_code[2:4], 16)
+    b = int(rgb_code[4:], 16)
+
+    h, l, s = colorsys.rgb_to_hls(r, g, b)
+    return l
 
 def _strip_file_ext(filename):
     filename_no_ext = filename.split('.')[0]
@@ -32,6 +43,7 @@ def _convert(filepath, format):
                 name=_filename_to_proper_name(filepath),
                 background=data["background"],
                 foreground=data["foreground"],
+                is_dark=_lightness(data["background"]) < _lightness(data["foreground"]),
                 cursor_foreground=data["cursor_fg"],
                 cursor_background=data["cursor_bg"],
                 color0=data["color0"],

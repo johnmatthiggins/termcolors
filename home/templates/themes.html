@@ -48,12 +48,22 @@
 								{{ scheme.name }}
 							</h2>
 							<hr class="border border-white border-dashed mr-1" />
+							<div class="flex gap-1">
 							{% if scheme.contrast_ratio > 16 %}
 								<div class="bg-white rounded-md no-underline mt-1 py-1 px-3 text-gray-700 w-fit text-sm">
 									High contrast
 								</div>
-							{% else %}
 							{% endif %}
+							{% if scheme.is_dark %}
+								<div class="bg-black rounded-md no-underline mt-1 py-1 px-3 text-white w-fit text-sm border border-white border-solid">
+									&#127769; Dark Mode
+								</div>
+							{% else %}
+								<div class="bg-white rounded-md no-underline mt-1 py-1 px-3 text-gray-700 w-fit text-sm">
+									&#9728;&#65039; Light Mode
+								</div>
+							{% endif %}
+							</div>
 						</td>
 						<td>
 							<div class="min-h-8 max-h-8 min-w-8 max-w-8 border border-solid border-black rounded-md" style="background-color:{{ scheme.foreground }};"></div>

@@ -8,6 +8,8 @@ class ColorScheme(models.Model):
     path = models.CharField(max_length=255, primary_key=True)
     name = models.CharField(max_length=255)
 
+    is_dark = models.BooleanField(default=True, null=False)
+
     background = models.CharField(max_length=8)
     foreground = models.CharField(max_length=8)
 
