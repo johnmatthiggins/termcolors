@@ -43,19 +43,19 @@
 						hx-indicator="#loading-indicator"
 						role="button"
 					>
-						<td class="flex flex-col justify-start pl-1">
+						<td class="flex flex-col justify-start pl-1 py-1">
 							<h2 class="transition grow flex items-start hover:cursor-pointer hover:bg-white hover:text-black">
 								{{ scheme.name }}
 							</h2>
 							<hr class="border border-white border-dashed mr-1" />
 							<div class="flex gap-2">
 							{% if scheme.contrast_ratio > 16 %}
-								<div class="bg-white rounded-md no-underline mt-1 py-1 px-2 text-gray-700 w-fit text-sm">
-									High contrast
+								<div class="bg-black rounded-md no-underline mt-1 py-1 px-2 text-white w-fit text-sm border border-white border-solid">
+									&#128161; High contrast
 								</div>
 							{% endif %}
 							{% if scheme.is_dark %}
-								<div class="bg-black rounded-md no-underline mt-1 py-1 px-2 text-white w-fit text-sm border border-white border-solid">
+								<div class="bg-gray-700 rounded-md no-underline mt-1 py-1 px-2 text-white w-fit text-sm border border-gray-500 border-solid">
 									&#127769; Dark Mode
 								</div>
 							{% else %}
