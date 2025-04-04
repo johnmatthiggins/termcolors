@@ -6,8 +6,24 @@
 {% block root %}
 <div class="text-lg" id="preview-root">
 	<div class="flex justify-between">
-		<h1 id="theme-name" class="text-white text-3xl mb-2 font-bold" style="font-family: Inter;">
+		<h1 id="theme-name" class="flex text-white text-3xl gap-3 mb-2 font-bold" style="font-family: Inter;">
 				{{ colorscheme.name }}
+				<span class="flex gap-2 item-center">
+				{% if colorscheme.contrast_ratio > 16 %}
+					<div class="bg-black rounded-md px-2 text-white w-fit text-sm border border-white border-solid flex items-center">
+						&#128161; High contrast
+					</div>
+				{% endif %}
+				{% if colorscheme.is_dark %}
+					<div class="bg-gray-700 rounded-md px-2 text-white w-fit text-sm border border-gray-500 border-solid flex items-center">
+						&#127769; Dark Mode
+					</div>
+				{% else %}
+					<div class="bg-white rounded-md px-2 text-gray-700 w-fit text-sm flex items-center">
+						&#9728;&#65039; Light Mode
+					</div>
+				{% endif %}
+				</span>
 		</h1>
 		<div id="loading-indicator">
 			<img class="animate-spin w-7 invert" src="{% static "loading.svg" %}">
@@ -17,7 +33,7 @@
 				display: none;
 			}
 			#loading-indicator.htmx-request {
-				display: block;
+				display: flex;
 			}
 		</style>
 	</div>
