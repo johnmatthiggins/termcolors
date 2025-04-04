@@ -168,12 +168,13 @@
 			});
 			const tableBody = document.querySelector("tbody");
 
-			// clear table
-			tableBody.innerHTML = '';
+			const rowsToAppend = [];
 
 			matchingRows.forEach((row) => {
-				tableBody.appendChild(row);
+				rowsToAppend.push(row);
 			});
+
+			tableBody.replaceChildren(...rowsToAppend)
 		};
 		searchInput.addEventListener("input", searchCallback);
 		if (searchInput.value) {
