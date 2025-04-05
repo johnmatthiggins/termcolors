@@ -20,13 +20,13 @@
 						<img class="ml-[-2rem] w-5 invert" src="{% static "search.svg" %}">
 					</div>
 					<div class="flex gap-2">
-						<label class="bg-black rounded-md mt-1 py-1 px-2 text-white text-sm border border-white border-solid font-bold flex items-center gap-1 select-none hover:cursor-pointer">
+						<label class="bg-black rounded-sm mt-1 py-1 px-2 text-white text-sm border border-white border-solid font-bold flex items-center gap-1 select-none hover:cursor-pointer">
 							<input name="high_contrast" type="checkbox" checked> High contrast
 						</label>
-						<label class="bg-gray-700 rounded-md mt-1 py-1 px-2 text-white text-sm border border-gray-500 border-solid font-bold flex items-center gap-1 select-none hover:cursor-pointer">
+						<label class="bg-gray-700 rounded-sm mt-1 py-1 px-2 text-white text-sm border border-gray-500 border-solid font-bold flex items-center gap-1 select-none hover:cursor-pointer">
 							<input name="dark_mode" type="checkbox" checked> Dark mode
 						</label>
-						<label class="bg-white rounded-md mt-1 py-1 px-2 text-gray-700 text-sm border border-gray-700 border-solid font-bold flex items-center gap-1 select-none hover:cursor-pointer">
+						<label class="bg-white rounded-sm mt-1 py-1 px-2 text-gray-700 text-sm border border-gray-700 border-solid font-bold flex items-center gap-1 select-none hover:cursor-pointer">
 							<input name="light_mode" type="checkbox" checked> Light mode
 						</label>
 					</div>
@@ -67,16 +67,16 @@
 							<hr class="border border-white border-dashed mr-1" />
 							<div class="flex gap-2" id="tags">
 							{% if scheme.contrast_ratio > 16 %}
-								<div class="bg-black rounded-md mt-1 py-1 px-2 text-white w-fit text-sm border border-white border-solid font-bold">
+								<div class="bg-black rounded-sm mt-1 py-1 px-2 text-white w-fit text-sm border border-white border-solid font-bold">
 									&#128161; High contrast
 								</div>
 							{% endif %}
 							{% if scheme.is_dark %}
-								<div class="bg-gray-700 rounded-md mt-1 py-1 px-2 text-white text-sm border border-gray-500 border-solid font-bold">
+								<div class="bg-gray-700 rounded-sm mt-1 py-1 px-2 text-white text-sm border border-gray-500 border-solid font-bold">
 									&#127769; Dark mode
 								</div>
 							{% else %}
-								<div class="bg-white rounded-md mt-1 py-1 px-2 text-gray-700 w-fit text-sm font-bold">
+								<div class="bg-white rounded-sm mt-1 py-1 px-2 text-gray-700 w-fit text-sm font-bold">
 									&#9728;&#65039; Light mode
 								</div>
 							{% endif %}
@@ -120,7 +120,7 @@
 			</table>
 			<button
 				id="back-to-top"
-				class="transition-all fixed bottom-4 w-40 bg-pink-600 border-2 border-pink-900 border-solid hover:underline text-white py-2 px-4 rounded-md flex items-center gap-2"
+				class="transition-all fixed bottom-4 w-40 bg-gradient-to-t from-pink-700 to-pink-500 border-2 border-pink-900 border-solid hover:underline text-white py-2 px-4 rounded-md flex items-center gap-2"
 				style="left: -12rem;"
 			>
 				<img class="invert w-6 rotate-90" src="{% static "back.svg" %}"> Back to top
