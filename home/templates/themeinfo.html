@@ -25,7 +25,7 @@
 				{% endif %}
 				</span>
 		</h1>
-		<button class="rounded-full bg-red-600 w-9 flex justify-center mb-2">
+		<button class="rounded-full bg-red-600 w-9 flex justify-center mb-2" id="close-modal">
 			<img class="w-7 invert" src="{% static "cross.svg" %}">
 		</button>
 		<style>
@@ -76,6 +76,9 @@
 <script>
 	document.addEventListener("htmx:afterSettle", (event) => {
 		document.querySelector('#preview-backdrop').style.display = 'flex';
+		document.querySelector('button#close-modal').addEventListener('click', () => {
+			document.querySelector('#preview-backdrop').style.display = 'none';
+		});
 	});
 </script>
 <style>
