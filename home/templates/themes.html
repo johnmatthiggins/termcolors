@@ -50,9 +50,9 @@
 				{% for scheme in colorschemes %}
 					<tr
 						id="{{ scheme.name|slugify }}"
-						class="text-lg"
-						hx-trigger="click"
-						hx-history="false"
+						class="text-lg hover:outline hover:outline-2 hover:outline-dotted hover:outline-white hover:cursor-pointer"
+						hx-trigger="mouseenter delay:100ms"
+del						hx-history="false"
 						hx-get="/preview/{{ scheme.name|slugify }}/"
 						hx-swap="innerHTML"
 						hx-target="#preview"
@@ -61,7 +61,7 @@
 						role="button"
 					>
 						<td class="flex flex-col justify-start py-1">
-							<h2 class="transition grow flex items-start hover:cursor-pointer hover:bg-white hover:text-black font-bold">
+							<h2 class="transition grow flex items-start font-bold">
 								{{ scheme.name }}
 							</h2>
 							<!-- <hr class="border border-white border-dashed mr-1" /> -->
@@ -249,11 +249,11 @@
 		});
 	});
 	</script>
-	<style>
-	.selected h2 {
-		background-color: white;
-		color: black;
-	}
-	</style>
+	<!-- <style> -->
+	<!-- .selected h2 { -->
+	<!-- 	background-color: white; -->
+	<!-- 	color: black; -->
+	<!-- } -->
+	<!-- </style> -->
 {% endspaceless %}
 {% endblock root %}
