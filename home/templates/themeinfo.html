@@ -25,9 +25,9 @@
 				{% endif %}
 				</span>
 		</h1>
-		<div id="loading-indicator">
-			<img class="animate-spin w-7 invert" src="{% static "loading.svg" %}">
-		</div>
+		<button class="rounded-full bg-red-600 w-9 flex justify-center mb-2">
+			<img class="w-7 invert" src="{% static "cross.svg" %}">
+		</button>
 		<style>
 			#loading-indicator {
 				display: none;
@@ -75,7 +75,7 @@
 </div>
 <script>
 	document.addEventListener("htmx:afterSettle", (event) => {
-		console.log(event);
+		document.querySelector('#preview-backdrop').style.display = 'flex';
 	});
 </script>
 <style>
