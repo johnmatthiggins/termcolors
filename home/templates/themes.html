@@ -6,7 +6,7 @@
 {% block root %}
 {% spaceless %}
 	<div class="w-full flex justify-between text-white bg-zinc-950" style="font-family: Inter;" id="main">
-		<div class="mx-2 md:px-0 md:w-7/8 lg:px-0 lg:w-1/3 pr-1 py-4 mb-12">
+		<div class="mx-4 md:px-0 md:w-7/8 lg:px-0 pr-1 py-4 mb-12">
 			<!-- <h1 class="pr-4 text-4xl italic text-white font-bold" style="font-family: Acme;">TERMCOLORS.dev</h1> -->
 			<div class="flex justify-between mb-2">
 				<div>
@@ -20,104 +20,23 @@
 						<img class="ml-[-2rem] w-5 invert" src="{% static "search.svg" %}">
 					</div>
 					<div class="flex gap-2">
-						<label class="bg-black rounded-sm mt-1 py-1 px-2 text-white text-sm border border-white border-solid font-bold flex items-center gap-1 select-none hover:cursor-pointer">
+						<label class="bg-black rounded-md mt-1 py-1 px-2 text-white text-sm border border-white border-solid font-bold flex items-center gap-1 select-none hover:cursor-pointer">
 							<input name="high_contrast" type="checkbox" checked> High contrast
 						</label>
-						<label class="bg-gray-700 rounded-sm mt-1 py-1 px-2 text-white text-sm border border-gray-500 border-solid font-bold flex items-center gap-1 select-none hover:cursor-pointer">
+						<label class="bg-gray-700 rounded-md mt-1 py-1 px-2 text-white text-sm border border-gray-500 border-solid font-bold flex items-center gap-1 select-none hover:cursor-pointer">
 							<input name="dark_mode" type="checkbox" checked> Dark mode
 						</label>
-						<label class="bg-white rounded-sm mt-1 py-1 px-2 text-gray-700 text-sm border border-gray-700 border-solid font-bold flex items-center gap-1 select-none hover:cursor-pointer">
+						<label class="bg-white rounded-md mt-1 py-1 px-2 text-gray-700 text-sm border border-gray-700 border-solid font-bold flex items-center gap-1 select-none hover:cursor-pointer">
 							<input name="light_mode" type="checkbox" checked> Light mode
 						</label>
 					</div>
 				</div>
 			</div>
-			<table>
-				<!-- <thead class="text-lg"> -->
-				<!-- 	<tr> -->
-				<!-- 		<th class="text-left pl-1" style="font-family: Inter;">Name</th> -->
-				<!-- 		<th class="max-w-8">Colors</th> -->
-				<!-- 		<th></th> -->
-				<!-- 		<th></th> -->
-				<!-- 		<th></th> -->
-				<!-- 		<th></th> -->
-				<!-- 		<th></th> -->
-				<!-- 		<th></th> -->
-				<!-- 		<th></th> -->
-				<!-- 	</tr> -->
-				<!-- </thead> -->
-				<tbody style="font-family: Inter;">
-				{% for scheme in colorschemes %}
-					<tr
-						id="{{ scheme.name|slugify }}"
-						class="text-lg hover:outline hover:outline-2 hover:outline-dotted hover:outline-white hover:cursor-pointer"
-						hx-trigger="mouseenter delay:100ms"
-del						hx-history="false"
-						hx-get="/preview/{{ scheme.name|slugify }}/"
-						hx-swap="innerHTML"
-						hx-target="#preview"
-						hx-replace-url="/#{{ scheme.name|slugify }}"
-						hx-indicator="#loading-indicator"
-						role="button"
-					>
-						<td class="flex flex-col justify-start py-1">
-							<h2 class="transition grow flex items-start font-bold">
-								{{ scheme.name }}
-							</h2>
-							<!-- <hr class="border border-white border-dashed mr-1" /> -->
-							<div class="flex gap-2" id="tags">
-							{% if scheme.contrast_ratio > 16 %}
-								<div class="bg-black rounded-sm mt-1 py-1 px-2 text-white w-fit text-sm border border-white border-solid font-bold">
-									&#128161; High contrast
-								</div>
-							{% endif %}
-							{% if scheme.is_dark %}
-								<div class="bg-gray-700 rounded-sm mt-1 py-1 px-2 text-white text-sm border border-gray-500 border-solid font-bold">
-									&#127769; Dark mode
-								</div>
-							{% else %}
-								<div class="bg-white rounded-sm mt-1 py-1 px-2 text-gray-700 w-fit text-sm font-bold">
-									&#9728;&#65039; Light mode
-								</div>
-							{% endif %}
-							</div>
-						</td>
-						<td>
-							<div class="min-h-7 max-h-7 min-w-7 max-w-7 " style="background-color:{{ scheme.color0 }};"></div>
-							<div class="min-h-7 max-h-7 min-w-7 max-w-7 mt-1 " style="background-color:{{ scheme.color8 }};"></div>
-						</td>
-						<td>
-							<div class="min-h-7 max-h-7 min-w-7 max-w-7 " style="background-color:{{ scheme.color1 }};"></div>
-							<div class="min-h-7 max-h-7 min-w-7 max-w-7 mt-1 " style="background-color:{{ scheme.color9 }};"></div>
-						</td>
-						<td>
-							<div class="min-h-7 max-h-7 min-w-7 max-w-7 " style="background-color:{{ scheme.color2 }};"></div>
-							<div class="min-h-7 max-h-7 min-w-7 max-w-7 mt-1 " style="background-color:{{ scheme.color10 }};"></div>
-						</td>
-						<td>
-							<div class="min-h-7 max-h-7 min-w-7 max-w-7 " style="background-color:{{ scheme.color3 }};"></div>
-							<div class="min-h-7 max-h-7 min-w-7 max-w-7 mt-1 " style="background-color:{{ scheme.color11 }};"></div>
-						</td>
-						<td>
-							<div class="min-h-7 max-h-7 min-w-7 max-w-7 " style="background-color:{{ scheme.color4 }};"></div>
-							<div class="min-h-7 max-h-7 min-w-7 max-w-7 mt-1 " style="background-color:{{ scheme.color12 }};"></div>
-						</td>
-						<td>
-							<div class="min-h-7 max-h-7 min-w-7 max-w-7 " style="background-color:{{ scheme.color5 }};"></div>
-							<div class="min-h-7 max-h-7 min-w-7 max-w-7 mt-1 " style="background-color:{{ scheme.color13 }};"></div>
-						</td>
-						<td>
-							<div class="min-h-7 max-h-7 min-w-7 max-w-7 " style="background-color:{{ scheme.color6 }};"></div>
-							<div class="min-h-7 max-h-7 min-w-7 max-w-7 mt-1 " style="background-color:{{ scheme.color14 }};"></div>
-						</td>
-						<td>
-							<div class="min-h-7 max-h-7 min-w-7 max-w-7 " style="background-color:{{ scheme.color7 }};"></div>
-							<div class="min-h-7 max-h-7 min-w-7 max-w-7 mt-1 " style="background-color:{{ scheme.color15 }};"></div>
-						</td>
-					</tr>
-				{% endfor %}
-				</tbody>
-			</table>
+			<div style="font-family: Inter;" class="flex gap-2 flex-wrap">
+			{% for scheme in colorschemes %}
+				{% include "row.html" %}
+			{% endfor %}
+			</div>
 			<button
 				id="back-to-top"
 				class="transition-all fixed bottom-4 w-40 bg-gradient-to-t from-pink-700 to-pink-500 border-2 border-pink-900 border-solid hover:underline text-white py-2 px-4 rounded-md flex items-center gap-2"
@@ -126,14 +45,17 @@ del						hx-history="false"
 				<img class="invert w-6 rotate-90" src="{% static "back.svg" %}"> Back to top
 			</button>
 		</div>
-		<div class="mx-2 fixed right-0 top-4 h-[80vh] w-[50vw]" id="preview">
-			<div class="h-full w-full flex flex-col justify-center items-center border border-white border-dashed">
+		<div class="fixed right-0 w-[100vw] h-[100vh] flex items-center justify-center backdrop-blur-sm" id="preview-modal">
+			<div
+				class="h-full w-fit h-fit flex flex-col justify-center items-start border-zinc-700 bg-zinc-900 rounded-lg p-4"
+				id="preview"
+			>
 				<h1 class="text-lg">Click the name of a theme to preview it</h1>
 				<span>Created by <a class="underline underline-offset-2" href="https://higgi.nz/">@higgi.nz</a></span>
 				<div>
 					<p>Shoutout to <a class="underline underline-offset-2" href="https://github.com/alacritty">@alacritty</a> and <a class="underline underline-offset-2" href="https://github.com/dexpota">@dexpota</a> for providing some amazing color schemes.</p>
 				</div>
-				<div class="mt-8" id="loading-indicator">
+				<div class="mt-8 mb-2" id="loading-indicator">
 					<img class="animate-spin invert w-8" src="{% static "loading.svg" %}">
 				</div>
 				<style>
@@ -242,11 +164,12 @@ del						hx-history="false"
 
 			// once you get 10% of the way down the page, the button appears
 			if (scrollPosition > 0.10) {
-				document.querySelector('button[id="back-to-top"]').style.left = '0.75rem';
+				document.querySelector('button[id="back-to-top"]').style.left = '0.5rem';
 			} else {
 				document.querySelector('button[id="back-to-top"]').style.left = '-12rem';
 			}
 		});
+
 	});
 	</script>
 	<!-- <style> -->
