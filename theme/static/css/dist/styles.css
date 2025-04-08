@@ -845,6 +845,10 @@ select {
   display: flex;
 }
 
+.table {
+  display: table;
+}
+
 .h-3 {
   height: 0.75rem;
 }
@@ -864,6 +868,18 @@ select {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-4 {
+  height: 1rem;
+}
+
+.h-5 {
+  height: 1.25rem;
+}
+
+.h-7 {
+  height: 1.75rem;
 }
 
 .max-h-7 {
@@ -911,6 +927,10 @@ select {
   width: 100%;
 }
 
+.w-auto {
+  width: auto;
+}
+
 .min-w-3 {
   min-width: 0.75rem;
 }
@@ -925,6 +945,10 @@ select {
 
 .max-w-7 {
   max-width: 1.75rem;
+}
+
+.max-w-6 {
+  max-width: 1.5rem;
 }
 
 .grow {
@@ -1182,6 +1206,14 @@ select {
   padding-right: 1rem;
 }
 
+.pr-2 {
+  padding-right: 0.5rem;
+}
+
+.text-left {
+  text-align: left;
+}
+
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
@@ -1248,6 +1280,11 @@ select {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity, 1));
 }
 
 .underline {
