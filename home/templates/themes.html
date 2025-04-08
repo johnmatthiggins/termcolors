@@ -5,7 +5,7 @@
 {% endblock title %}
 {% block root %}
 {% spaceless %}
-	<div class="w-full flex justify-between text-white bg-zinc-950" style="font-family: Inter;" id="main">
+	<div class="w-full flex justify-between text-white bg-zinc-900" style="font-family: Inter;" id="main">
 		<div class="mx-4 md:px-0 md:w-7/8 lg:px-0 pr-1 py-4 mb-12">
 			<!-- <h1 class="pr-4 text-4xl italic text-white font-bold" style="font-family: Acme;">TERMCOLORS.dev</h1> -->
 			<div class="flex justify-between mb-2">
@@ -45,7 +45,7 @@
 				<img class="invert w-6 rotate-90" src="{% static "back.svg" %}"> Back to top
 			</button>
 		</div>
-		<div class="fixed right-0 w-[100vw] h-[100vh] flex items-center justify-center backdrop-blur-sm" id="preview-backdrop">
+		<div class="fixed right-0 w-[100vw] h-[100vh] flex items-center justify-center backdrop-brightness-50" id="preview-backdrop">
 			<div
 				class="w-fit h-fit flex flex-col justify-center items-center border-zinc-700 bg-zinc-900 rounded-lg p-4"
 				id="preview"
@@ -58,33 +58,13 @@
 				<div class="mt-8 mb-2" id="loading-indicator">
 					<img class="animate-spin invert w-8" src="{% static "loading.svg" %}">
 				</div>
-				<style>
-					#loading-indicator {
-						display: none;
-					}
-					#loading-indicator.htmx-request {
-						display: block;
-					}
-				</style>
 			</div>
 		</div>
 	</div>
 	<script>
 	let rows = [];
 	document.addEventListener("DOMContentLoaded", () => {
-		let maxCellWidth = 0;
-		document.querySelectorAll("tr td:nth-of-type(1)").forEach((element) => {
-			const { width } = element.getBoundingClientRect();
-
-			if (width > maxCellWidth) {
-				maxCellWidth = width;
-			}
-		});
-		document.querySelectorAll("tr td:nth-of-type(1)").forEach((row) => {
-			row.style["min-width"] = `${maxCellWidth}px`;
-		});
-
-		const elements = document.querySelectorAll("tr");
+		const elements = document.querySelectorAll("article");
 		elements.forEach((element, i) => {
 			if (i > 0) {
 				rows.push(element);
@@ -149,6 +129,9 @@
 		if (hash) {
 			const id = String(hash.slice(1));
 			document.querySelector(`[id="${id}"]`).click();
+		} else {
+			document.querySelector('#preview-backdrop').style.display = 'none';
+			document.querySelector('#preview').style['margin-top'] = '150vh';
 		}
 
 		document.querySelector('[id="back-to-top"]').addEventListener('click', () => {
@@ -176,7 +159,9 @@
 		});
 
 		document.querySelector('#preview-backdrop').addEventListener('click', () => {
-			document.querySelector('#preview-backdrop').style.display = 'none';
+			document.querySelector('#preview').style['margin-top'] = '0vh';
+			document.querySelector('#preview-backdrop').style.display = 'flex';
+			history.pushState("", document.title, window.location.pathname + window.location.search);
 		});
 
 	});
