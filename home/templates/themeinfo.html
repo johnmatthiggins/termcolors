@@ -73,16 +73,14 @@
 {% endspaceless %}
 </div>
 <script>
-	document.addEventListener("htmx:afterSettle", (event) => {
-		document.querySelector('button#close-modal').addEventListener('click', () => {
-			history.pushState("", document.title, window.location.pathname + window.location.search);
-			document.querySelector('#preview-backdrop').style.display = 'none';
-		});
+	function closeModal() {
+		history.pushState("", document.title, "/");
+		document.querySelector('#preview-backdrop').style.display = 'none';
+	}
 
-		document.querySelector('#preview-backdrop').addEventListener('click', () => {
-			document.querySelector('#preview-backdrop').style.display = 'none';
-			history.pushState("", document.title, window.location.pathname + window.location.search);
-		});
+	document.addEventListener("htmx:afterSettle", (event) => {
+		document.querySelector('button#close-modal').addEventListener('click', closeModal);
+		document.querySelector('#preview-backdrop').addEventListener('click', closeModal);
 	});
 </script>
 {% endblock root %}
