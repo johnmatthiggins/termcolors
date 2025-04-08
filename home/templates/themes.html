@@ -32,7 +32,7 @@
 					</div>
 				</div>
 			</div>
-			<div style="font-family: Inter;" class="flex gap-2 flex-wrap">
+			<div style="font-family: Inter;" class="flex gap-2 flex-wrap" id="colorschemes">
 			{% for scheme in colorschemes %}
 				{% include "row.html" %}
 			{% endfor %}
@@ -64,13 +64,13 @@
 	<script>
 	let rows = [];
 	document.addEventListener("DOMContentLoaded", () => {
-		const elements = document.querySelectorAll("article");
+		const elements = document.querySelectorAll(".colorschemes article");
 		elements.forEach((element, i) => {
 			if (i > 0) {
 				rows.push(element);
 			}
 		});
-		const searchInput = document.querySelector('[type="search"]');
+		const searchInput = document.querySelector('input[type="search"]');
 		const searchCallback = () => {
 			const text = document.querySelector('input[type="search"]').value;
 			const matchingRows = [];
@@ -131,7 +131,6 @@
 			document.querySelector(`[id="${id}"]`).click();
 		} else {
 			document.querySelector('#preview-backdrop').style.display = 'none';
-			document.querySelector('#preview').style['margin-top'] = '150vh';
 		}
 
 		document.querySelector('[id="back-to-top"]').addEventListener('click', () => {
@@ -158,12 +157,12 @@
 			event.stopPropagation();
 		});
 
-		document.querySelector('#preview-backdrop').addEventListener('click', () => {
-			document.querySelector('#preview').style['margin-top'] = '0vh';
-			document.querySelector('#preview-backdrop').style.display = 'flex';
-			history.pushState("", document.title, window.location.pathname + window.location.search);
+		document.querySelectorAll('#colorschemes').forEach((element) => {
+			element.addEventListener('htmx:afterRequest', () => {
+				document.querySelector('#preview').classList.add('squeeze');
+				document.querySelector('#preview-backdrop').style.display = 'flex';
+			});
 		});
-
 	});
 	</script>
 {% endspaceless %}

@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.squeeze {
+	animation: 0.10s ease-in-out 0s squeezeOpen;
+}
+
+@keyframes squeezeOpen {
+	0% {
+		transform: scale(0.01);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+html,body {
+	width: 100%;
+}

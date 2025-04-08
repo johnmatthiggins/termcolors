@@ -1,6 +1,6 @@
 <article
   id="{{ scheme.name|slugify }}"
-  class="transition text-lg hover:text-black hover:bg-white hover:cursor-pointer px-3 py-2 rounded-md border border-zinc-800 border-solid bg-zinc-900"
+  class="transition text-lg hover:text-black hover:bg-white hover:cursor-pointer px-3 py-2 rounded-md border border-zinc-800 border-solid bg-zinc-900 active:scale-95"
   hx-trigger="click"
   hx-history="false"
   hx-get="/preview/{{ scheme.name|slugify }}/"
@@ -13,7 +13,6 @@
 	  <h2 class="transition grow flex items-start font-bold mb-1">
 		  {{ scheme.name }}
 	  </h2>
-	  <!-- <hr class="border border-white border-dashed mr-1" /> -->
 	  <div class="flex gap-2" id="tags">
 	  {% if scheme.contrast_ratio > 16 %}
 		  <div class="bg-black rounded-md py-1 px-2 text-white w-fit text-sm border border-white border-solid font-bold">
