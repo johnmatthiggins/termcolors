@@ -5,10 +5,9 @@
 {% endblock title %}
 {% block root %}
 {% spaceless %}
-	<div class="w-full flex justify-between text-white bg-zinc-900" style="font-family: Inter;" id="main">
+	<div class="w-full text-white bg-zinc-900 h-full" style="font-family: Inter;" id="main">
 		<div class="mx-4 md:px-0 md:w-7/8 lg:px-0 pr-1 py-4 mb-12">
-			<!-- <h1 class="pr-4 text-4xl italic text-white font-bold" style="font-family: Acme;">TERMCOLORS.dev</h1> -->
-			<div class="flex justify-between mb-2">
+			<div class="flex justify-center mb-2">
 				<div>
 					<div class="flex mb-1">
 						<input
@@ -32,7 +31,7 @@
 					</div>
 				</div>
 			</div>
-			<div style="font-family: Inter;" class="flex gap-2 flex-wrap" id="colorschemes">
+			<div style="font-family: Inter;" class="flex gap-2 justify-center flex-wrap" id="colorschemes">
 			{% for scheme in colorschemes %}
 				{% include "row.html" %}
 			{% endfor %}
@@ -45,7 +44,7 @@
 				<img class="invert w-6 rotate-90" src="{% static "back.svg" %}"> Back to top
 			</button>
 		</div>
-		<div class="fixed right-0 w-[100vw] h-[100vh] flex items-center justify-center backdrop-brightness-50" id="preview-backdrop">
+		<div class="fixed right-0 w-[100vw] h-[100vh] flex items-center justify-center backdrop-blur-sm backdrop-brightness-50" id="preview-backdrop">
 			<div
 				class="w-fit h-fit flex flex-col justify-center items-center border-zinc-700 bg-zinc-900 rounded-lg p-4"
 				id="preview"
@@ -64,7 +63,7 @@
 	<script>
 	let rows = [];
 	document.addEventListener("DOMContentLoaded", () => {
-		const elements = document.querySelectorAll(".colorschemes article");
+		const elements = document.querySelectorAll("#colorschemes article");
 		elements.forEach((element, i) => {
 			if (i > 0) {
 				rows.push(element);
@@ -90,11 +89,12 @@
 					return;
 				}
 				const themeName = row.children[0].children[0].textContent;
+				console.log(themeName);
 				if (themeName.toLowerCase().includes(text.toLowerCase())) {
 					matchingRows.push(row);
 				}
 			});
-			const tableBody = document.querySelector("tbody");
+			const tableBody = document.querySelector("#colorschemes");
 
 			const rowsToAppend = [];
 
@@ -146,7 +146,7 @@
 
 			// once you get 10% of the way down the page, the button appears
 			if (scrollPosition > 0.10) {
-				document.querySelector('button[id="back-to-top"]').style.left = '0.5rem';
+				document.querySelector('button[id="back-to-top"]').style.left = '1rem';
 			} else {
 				document.querySelector('button[id="back-to-top"]').style.left = '-12rem';
 			}
