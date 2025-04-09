@@ -44,16 +44,11 @@
 				<img class="invert w-6 rotate-90" src="{% static "back.svg" %}"> Back to top
 			</button>
 		</div>
-		<div class="fixed right-0 w-[100vw] h-[100vh] flex items-center justify-center backdrop-blur-sm backdrop-brightness-50" id="preview-backdrop">
+		<div class="fixed top-0 w-[100vw] h-[100vh] flex items-center justify-center backdrop-blur-sm backdrop-brightness-50" id="preview-backdrop">
 			<div
 				class="w-fit h-fit flex flex-col justify-center items-center border-zinc-700 bg-zinc-900 rounded-lg p-4"
 				id="preview"
 			>
-				<!-- <h1 class="text-lg">Click the name of a theme to preview it</h1> -->
-				<!-- <span>Created by <a class="underline underline-offset-2" href="https://higgi.nz/">@higgi.nz</a></span> -->
-				<!-- <div> -->
-				<!-- 	<p>Shoutout to <a class="underline underline-offset-2" href="https://github.com/alacritty">@alacritty</a> and <a class="underline underline-offset-2" href="https://github.com/dexpota">@dexpota</a> for providing some amazing color schemes.</p> -->
-				<!-- </div> -->
 				<div class="mt-8 mb-2" id="loading-indicator">
 					<img class="animate-spin invert w-8" src="{% static "loading.svg" %}">
 				</div>
@@ -61,6 +56,16 @@
 		</div>
 	</div>
 	<script>
+	function registerListeners() {
+		document.querySelectorAll('#colorschemes').forEach((element) => {
+			element.addEventListener('htmx:afterRequest', () => {
+				console.log('modal should be visible');
+				document.querySelector('#preview').classList.add('squeeze');
+				document.querySelector('#preview-backdrop').style.display = 'flex';
+			});
+		});
+	}
+
 	let rows = [];
 	document.addEventListener("DOMContentLoaded", () => {
 		const elements = document.querySelectorAll("#colorschemes article");
@@ -78,7 +83,7 @@
 			const includeHighContrast = document.querySelector('input[name="high_contrast"]').checked;
 
 			rows.forEach((row) => {
-				const tags = row.children[0].querySelector('#tags').textContent;
+				const tags = row.children[0].querySelector('#tags').textContent.trim();
 				if (!includeLight && tags.includes('Light mode')) {
 					return;
 				}
@@ -88,8 +93,7 @@
 				if (!includeHighContrast && tags.includes('High contrast')) {
 					return;
 				}
-				const themeName = row.children[0].children[0].textContent;
-				console.log(themeName);
+				const themeName = row.children[0].children[0].textContent.trim();
 				if (themeName.toLowerCase().includes(text.toLowerCase())) {
 					matchingRows.push(row);
 				}
@@ -107,6 +111,7 @@
 			} else {
 				tableBody.innerHTML = `<div class="text-lg mt-1 pl-1">No results found...</div>`;
 			}
+			registerListeners();
 		};
 		searchInput.addEventListener("input", searchCallback);
 		if (searchInput.value) {
@@ -117,18 +122,10 @@
 		document.querySelector('input[name="dark_mode"]').addEventListener('change', searchCallback);
 		document.querySelector('input[name="high_contrast"]').addEventListener('change', searchCallback);
 
-		document.addEventListener('htmx:beforeRequest', (event) => {
-			const { target } = event;
-			document.querySelectorAll('.selected').forEach((element) => {
-				element.classList.remove('selected');
-			});
-			target.classList.add('selected');
-		});
-
 		const hash = window.location.hash;
 		if (hash) {
 			const id = String(hash.slice(1));
-			document.querySelector(`[id="${id}"]`).click();
+			document.querySelector(`#${id}`).click();
 		} else {
 			document.querySelector('#preview-backdrop').style.display = 'none';
 		}
@@ -157,12 +154,16 @@
 			event.stopPropagation();
 		});
 
-		document.querySelectorAll('#colorschemes').forEach((element) => {
-			element.addEventListener('htmx:afterRequest', () => {
-				document.querySelector('#preview').classList.add('squeeze');
-				document.querySelector('#preview-backdrop').style.display = 'flex';
-			});
+		function closeModal() {
+			history.pushState("", document.title, "/");
+			document.querySelector('#preview-backdrop').style.display = 'none';
+		}
+		document.addEventListener("htmx:afterSettle", (event) => {
+			document.querySelector('button#close-modal').addEventListener('click', closeModal);
+			document.querySelector('#preview-backdrop').addEventListener('click', closeModal);
 		});
+
+		registerListeners();
 	});
 	</script>
 {% endspaceless %}
