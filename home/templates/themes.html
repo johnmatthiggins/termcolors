@@ -58,10 +58,16 @@
 	<script>
 	function registerListeners() {
 		document.querySelectorAll('#colorschemes').forEach((element) => {
+			element.addEventListener('htmx:beforeRequest', () => {
+				const previewElement = document.querySelector('#preview-backdrop');
+				previewElement.querySelector('#preview').innerHTML =
+`<div class="mt-8 mb-2" id="loading-indicator">
+	<img class="animate-spin invert w-8" src="{% static "loading.svg" %}">
+</div>`;
+				previewElement.style.display = 'flex';
+			});
 			element.addEventListener('htmx:afterRequest', () => {
-				console.log('modal should be visible');
 				document.querySelector('#preview').classList.add('squeeze');
-				document.querySelector('#preview-backdrop').style.display = 'flex';
 			});
 		});
 	}
