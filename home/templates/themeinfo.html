@@ -70,8 +70,8 @@
 					<td>
 						<div class="flex gap-2 text-white">
 							<a href="/download/windows/{{ colorscheme.name|slugify }}" class="text-blue-500 underline underline-offset-2 decoration-2">download</a>
-							<a href="/download/windows/{{ colorscheme.name|slugify }}" class="clipboard">
-								<img class="w-6 invert" src="{% static "copy.svg" %}" />
+							<a href="/download/windows/{{ colorscheme.name|slugify }}" class="clipboard bg-zinc-800 hover:bg-zinc-700 p-1 rounded-md active:scale-90 transition">
+								<img class="w-5 invert" src="{% static "copy.svg" %}" />
 							</a>
 						</div>
 					</td>
@@ -84,8 +84,8 @@
 					<td>
 						<div class="flex gap-2 text-white">
 							<a href="/download/alacritty/{{ colorscheme.name|slugify }}" class="text-blue-500 underline underline-offset-2 decoration-2">download</a>
-							<a href="/download/alacritty/{{ colorscheme.name|slugify }}" class="clipboard">
-								<img class="w-6 invert" src="{% static "copy.svg" %}" />
+							<a href="/download/alacritty/{{ colorscheme.name|slugify }}" class="clipboard bg-zinc-800 hover:bg-zinc-700 p-1 rounded-md active:scale-90 transition">
+								<img class="w-5 invert" src="{% static "copy.svg" %}" />
 							</a>
 						</div>
 					</td>
@@ -98,14 +98,20 @@
 					<td>
 						<div class="flex gap-2 text-white">
 							<a href="/download/kitty/{{ colorscheme.name|slugify }}" class="text-blue-500 underline underline-offset-2 decoration-2">download</a>
-							<a href="/download/kitty/{{ colorscheme.name|slugify }}" class="clipboard">
-								<img class="w-6 invert" src="{% static "copy.svg" %}" />
+							<a href="/download/kitty/{{ colorscheme.name|slugify }}" class="clipboard bg-zinc-800 hover:bg-zinc-700 p-1 rounded-md active:scale-90 transition">
+								<img class="w-5 invert" src="{% static "copy.svg" %}" />
 							</a>
 						</div>
 					</td>
 				</tr>
 			</tbody>
 	</table>
+	<!-- TODO set timeout when copied to clipboard and make snackbar appear and then go away... -->
+	<div class="w-[100vw] flex justify-center fixed bottom-0 left-0 bg-green-500">
+		<div class="rounded-md bg-green-500 text-white w-fit text-lg py-2 px-4 flex gap-2">
+			<img class="w-6 invert" src="{% static "checkmark.svg" %}" /> Successfully copied theme to clipboard!
+		</div>
+	</div>
 	<script>
 	document.addEventListener('htmx:afterSettle', (event) => {
 		document.querySelectorAll('#download-links a.clipboard').forEach((element) => {
