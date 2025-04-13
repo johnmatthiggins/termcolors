@@ -54,11 +54,11 @@
 		</div>
 	</article>
 {% spaceless %}
-	<table>
+	<table id="download-links">
 			<thead>
 				<tr>
 					<th class="text-left pr-2">Platform</th>
-					<th class="text-left">Link</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -70,6 +70,9 @@
 					<td>
 						<div class="flex gap-2 text-white">
 							<a href="/download/windows/{{ colorscheme.name|slugify }}" class="text-blue-500 underline underline-offset-2 decoration-2">download</a>
+							<a href="/download/windows/{{ colorscheme.name|slugify }}" class="clipboard">
+								<img class="w-6 invert" src="{% static "copy.svg" %}" />
+							</a>
 						</div>
 					</td>
 				</tr>
@@ -81,6 +84,9 @@
 					<td>
 						<div class="flex gap-2 text-white">
 							<a href="/download/alacritty/{{ colorscheme.name|slugify }}" class="text-blue-500 underline underline-offset-2 decoration-2">download</a>
+							<a href="/download/alacritty/{{ colorscheme.name|slugify }}" class="clipboard">
+								<img class="w-6 invert" src="{% static "copy.svg" %}" />
+							</a>
 						</div>
 					</td>
 				</tr>
@@ -92,11 +98,38 @@
 					<td>
 						<div class="flex gap-2 text-white">
 							<a href="/download/kitty/{{ colorscheme.name|slugify }}" class="text-blue-500 underline underline-offset-2 decoration-2">download</a>
+							<a href="/download/kitty/{{ colorscheme.name|slugify }}" class="clipboard">
+								<img class="w-6 invert" src="{% static "copy.svg" %}" />
+							</a>
 						</div>
 					</td>
 				</tr>
 			</tbody>
 	</table>
+	<script>
+	document.addEventListener('htmx:afterSettle', (event) => {
+		document.querySelectorAll('#download-links a.clipboard').forEach((element) => {
+			element.addEventListener('click', async (event) => {
+				event.preventDefault();
+				const anchor = event.target.parentNode;
+				const url = anchor.getAttribute('href');
+
+				const response = await fetch(url);
+				if (!response.ok) {
+					console.error('Oh no! The request failed!');
+					return;
+				}
+
+				const text = await response.text();
+				const clipboardItemData = {
+					'text/plain': text,
+				};
+				await navigator.clipboard.write([new ClipboardItem(clipboardItemData)]);
+				console.log('successfully copied theme contents to clipboard...');
+			});
+		});
+	});
+	</script>
 {% endspaceless %}
 </div>
 {% endblock root %}
