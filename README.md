@@ -1,3 +1,7 @@
-# Terminal Theme Converter
+# termcolors.dev
 
-Website that converts terminal themes from iterm2, kitty, alacritty, and windows terminal.
+A website that contains more than 300 cross platform terminal color themes.
+
+## Thanks
+
+- Joshua Hicks - for helping with colors and testing.
