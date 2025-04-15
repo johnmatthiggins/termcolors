@@ -49,7 +49,7 @@
 				class="w-fit h-fit flex flex-col justify-center items-center border-zinc-700 bg-zinc-900 rounded-lg p-4"
 				id="preview"
 			>
-				<div class="mt-8 mb-2" id="loading-indicator">
+				<div id="loading-indicator">
 					<img class="animate-spin invert w-8" src="{% static "loading.svg" %}">
 				</div>
 			</div>
@@ -61,7 +61,7 @@
 			element.addEventListener('htmx:beforeRequest', () => {
 				const previewElement = document.querySelector('#preview-backdrop');
 				previewElement.querySelector('#preview').innerHTML =
-`<div class="mt-8 mb-2" id="loading-indicator">
+`<div id="loading-indicator">
 	<img class="animate-spin invert w-8" src="{% static "loading.svg" %}">
 </div>`;
 				previewElement.style.display = 'flex';
