@@ -11,6 +11,7 @@ urlpatterns = [
     path("download/windows/<str:slug>/", views.download_theme_windows_terminal),
     path("download/alacritty/<str:slug>/", views.download_theme_alacritty),
     path("download/kitty/<str:slug>/", views.download_theme_kitty),
+    path("download/st/<str:slug>/", views.download_theme_suckless),
     path("admin/", admin.site.urls),
 ]
 

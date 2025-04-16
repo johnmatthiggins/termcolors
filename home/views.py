@@ -7,22 +7,6 @@ import json
 
 from home.models import ColorScheme 
 
-# Create your views here.
-@require_http_methods(["GET"])
-def home(request: HttpRequest) -> HttpResponse:
-    f = open('example_themes/alacritty.toml', 'rb')
-    left_text = f.read().decode('utf8')
-    f.close()
-
-    f = open('example_themes/alacritty.toml', 'rb')
-    right_text = f.read().decode('utf8')
-    f.close()
-
-    return render(request, 'home.html', {
-        "right_text": right_text,
-        "left_text": left_text,
-    })
-
 @require_http_methods(["GET"])
 def theme_list(request: HttpRequest) -> HttpResponse:
     colorschemes = ColorScheme.objects.filter(
@@ -201,3 +185,69 @@ color15 {colorscheme.color15}
     response["Content-Disposition"] = 'attachment; filename="%s"' % filename
 
     return response
+
+
+@require_http_methods(["GET"])
+async def download_theme_suckless(_: HttpRequest, slug: str) -> HttpResponse:
+    queryset = ColorScheme.objects.raw(
+        """
+        SELECT *
+        FROM home_colorscheme
+        WHERE LOWER(REPLACE(name, ' ', '-')) = %s
+        """, [slug]
+    )
+    colorscheme = None
+    async for scheme in queryset:
+        colorscheme = scheme
+    if not colorscheme:
+        raise ObjectDoesNotExist()
+        # throw an error or something
+
+
+    filename = "%s.h" % slug.replace("-", "_")
+
+    data = f"""
+static const char *colorname[] = {{
+    /* 8 normal colors */
+    "{colorscheme.color0}",
+    "{colorscheme.color1}",
+    "{colorscheme.color2}",
+    "{colorscheme.color3}",
+    "{colorscheme.color4}",
+    "{colorscheme.color5}",
+    "{colorscheme.color6}",
+    "{colorscheme.color7}",
+
+    /* 8 bright colors */
+    "{colorscheme.color8}",
+    "{colorscheme.color9}",
+    "{colorscheme.color10}",
+    "{colorscheme.color11}",
+    "{colorscheme.color12}",
+    "{colorscheme.color13}",
+    "{colorscheme.color14}",
+    "{colorscheme.color15}",
+
+    [255] = 0,
+
+    "{colorscheme.background}",
+    "{colorscheme.foreground}",
+    "{colorscheme.cursor_foreground}",
+    "{colorscheme.cursor_background}",
+}};
+
+/*
+ * Default colors (colorname index)
+ * foreground, background, cursor, reverse cursor
+ */
+unsigned int defaultfg = 257;
+unsigned int defaultbg = 256;
+unsigned int defaultcs = 258;
+static unsigned int defaultrcs = 259;
+"""
+
+    response = HttpResponse(data.encode('utf8'), content_type="text/plain")
+    response["Content-Disposition"] = 'attachment; filename="%s"' % filename
+
+    return response
+

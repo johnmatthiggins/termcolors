@@ -104,6 +104,20 @@
 						</div>
 					</td>
 				</tr>
+				<tr>
+					<td class="flex gap-2 pr-2">
+						<img class="w-6" src="{% static "suckless.svg" %}">
+						Suckless Terminal
+					</td>
+					<td>
+						<div class="flex gap-2 text-white">
+							<a href="/download/st/{{ colorscheme.name|slugify }}" class="text-blue-500 underline underline-offset-2 decoration-2">download</a>
+							<a href="/download/st/{{ colorscheme.name|slugify }}" class="clipboard bg-zinc-800 hover:bg-zinc-700 p-1 rounded-md active:scale-90 transition">
+								<img class="w-5 invert" src="{% static "copy.svg" %}" />
+							</a>
+						</div>
+					</td>
+				</tr>
 			</tbody>
 	</table>
 	<div

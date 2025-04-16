@@ -837,10 +837,6 @@ select {
   margin-top: 0.25rem;
 }
 
-.mt-8 {
-  margin-top: 2rem;
-}
-
 .block {
   display: block;
 }
@@ -855,10 +851,6 @@ select {
 
 .contents {
   display: contents;
-}
-
-.hidden {
-  display: none;
 }
 
 .h-3 {
@@ -884,6 +876,10 @@ select {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-auto {
+  height: auto;
 }
 
 .max-h-7 {
@@ -933,6 +929,10 @@ select {
 
 .w-full {
   width: 100%;
+}
+
+.w-4 {
+  width: 1rem;
 }
 
 .min-w-3 {
@@ -1263,6 +1263,11 @@ select {
   letter-spacing: 0em;
 }
 
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+}
+
 .text-blue-500 {
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity, 1));
@@ -1276,11 +1281,6 @@ select {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-}
-
-.text-black {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
 }
 
 .underline {
