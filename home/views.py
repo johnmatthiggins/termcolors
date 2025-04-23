@@ -54,7 +54,7 @@ async def download_theme_windows_terminal(_: HttpRequest, slug: str) -> HttpResp
     json_text = json.dumps({
         "name": colorscheme.name,
         "cursorColor": colorscheme.cursor_foreground,
-        "selectionBackground": colorscheme.cursor_background,
+        "selectionBackground": colorscheme.cursor_foreground,
         "background": colorscheme.background,
         "foreground": colorscheme.foreground,
 
@@ -160,8 +160,8 @@ async def download_theme_kitty(_: HttpRequest, slug: str) -> HttpResponse:
 
     data = f"""background {colorscheme.background}
 foreground {colorscheme.foreground}
-cursor {colorscheme.cursor_background}
-selection_background {colorscheme.color11}
+cursor {colorscheme.cursor_foreground}
+selection_background {colorscheme.foreground}
 selection_foreground {colorscheme.background}
 color0 {colorscheme.color0}
 color8 {colorscheme.color8}
