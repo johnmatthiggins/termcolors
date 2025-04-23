@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.views.decorators.http import require_http_methods
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
@@ -10,7 +11,7 @@ from home.models import ColorScheme
 @require_http_methods(["GET"])
 def theme_list(request: HttpRequest) -> HttpResponse:
     colorschemes = ColorScheme.objects.filter(
-        name__regex=r"[^\(|\)]"
+        ~Q(name__contains="(") & ~Q(name__contains=")")
     ).order_by('name')
     context = {
         "colorschemes": colorschemes,
