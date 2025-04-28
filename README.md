@@ -13,10 +13,11 @@ To run this project you'll need these four programs:
 
 First clone the repository, then run `poetry install --no-root`.
 After poetry is done installing packages you can run these commands:
-`./mg migrate` - sets up the database schema
-`./mg tailwind install` - installs tailwind using django-tailwind.
-`./mg downloadthemes` - installs a list of themes from the internet.
-`./mg importthemes` - parses and imports those themes into the sqlite database.
+
+- `./mg migrate` - sets up the database schema
+- `./mg tailwind install` - installs tailwind using django-tailwind.
+- `./mg downloadthemes` - installs a list of themes from the internet.
+- `./mg importthemes` - parses and imports those themes into the sqlite database.
 
 Then once you are ready to develop you can run these to commands:
 `./mg runserver` and `./mg tailwind start`
