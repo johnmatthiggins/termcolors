@@ -233,8 +233,8 @@ static const char *colorname[] = {{
 
     "{colorscheme.background}",
     "{colorscheme.foreground}",
-    "{colorscheme.cursor_foreground}",
     "{colorscheme.cursor_background}",
+    "{colorscheme.cursor_foreground}",
 }};
 
 /*
